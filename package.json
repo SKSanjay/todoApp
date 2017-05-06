@@ -1,0 +1,38 @@
+{
+  "name": "mean-template",
+  "version": "1.0.0",
+  "description": "mean template",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mean",
+    "template"
+  ],
+  "author": "Daniel Mason",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.6.4",
+    "bootstrap": "^3.3.7",
+    "font-awesome": "^4.7.0",
+    "gulp-clean-css": "^3.0.4",
+    "jquery": "^3.2.1"
+  },
+  "devDependencies": {
+    "angular-mocks": "^1.6.4",
+    "cssify": "^1.0.3",
+    "gulp": "^3.9.1",
+    "gulp-browserify": "^0.5.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-livereload": "^3.8.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^2.6.0",
+    "gulp-uglify": "^2.1.2",
+    "gulp-util": "^3.0.8",
+    "jasmine-core": "^2.6.1",
+    "karma": "^1.6.0",
+    "karma-chrome-launcher": "^2.1.1",
+    "karma-jasmine": "^1.1.0"
+  }
+}

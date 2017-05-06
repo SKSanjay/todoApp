@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>Hellooo</title>
+  </head>
+  <body ng-app="mainApp">
+
+    <div class="container" ng-controller="MainController as vm">
+
+      <div class="jumbotron">
+        <h1>Test App</h1>
+      </div>
+
+      <div class="row">
+        
+        <div class="col-xs-12">
+          <button class="btn btn-sm btn-danger" type="button"> <i class="fa fa-check"></i> {{vm.test}}</button>
+        </div>
+        
+      </div>
+
+    </div>
+
+    <script src="build/bundle.js"></script>
+    <script src="build/build.min.js"></script>
+  </body>
+</html>
