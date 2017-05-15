@@ -1,23 +1,19 @@
 <html>
-  <head>
-    <title>Todo Manager 0.0.1</title>
-  </head>
-  <body ng-app="todoApp">
 
-    <div class="container" ng-controller="TodoController as vm">
+<head>
+  <title>Todo Manager 0.0.1</title>
+</head>
 
-      <div class="jumbotron">
-        <h1>Todo Manager</h1>
-        {{todos.length}}
-      </div>
+<body ng-app="todoApp">
 
+  <div class="container" ng-controller="TodoController as vm">
 
+    <div class="jumbotron">
+      <h1>Todo Manager</h1>
+      Current Todos:{{todos.length}}
+    </div>
 
-        <!--<div class="col-xs-3">
-          <input type="text" ng-model="formData.text"></input>
-        </div>
-        
-       <div class="col-xs-3">
+    <!--<div class="col-xs-3">
          <div class="input-group">
           <tags-input ng-model="tags" class="ti-input-lg">
               <auto-complete source="loadTags($query)"></auto-complete>
@@ -25,23 +21,30 @@
         </div>
        </div>-->
 
-
-
-        <div>
-          <div ng-repeat="todo in todos" class="row">            
-            <input class="form-control" type="text" ng-model="todo.text"></input>
-            <span><button class="btn btn-success" ng-click="updateTodo(todo._id, todo.text)">Update</button></span>
-            <span><button class="btn btn-danger" ng-click="deleteTodo(todo._id)">Delete</button></span>
-          </div>
-        </div>
-
-        <div class="col-xs-12">
-          <button class="btn btn-sm btn-danger" type="button" ng-click="createTodo()"> <i class="fa fa-check"></i>Add</button>
-        </div>  
-
+    <div ng-repeat="todo in todos" class="row">
+      <div class="col-xs-9">
+        <input class="form-control" type="text" ng-model="todo.text"></input>
+      </div>
+      <div class="col-xs-3">
+        <span><button class="btn btn-success" ng-click="updateTodo(todo._id, todo.text)">Update</button></span>
+        <span><button class="btn btn-danger" ng-click="deleteTodo(todo._id)">Delete</button></span>
+      </div>
     </div>
 
-    <script src="build/bundle.js"></script>
-    <script src="build/build.min.js"></script>
-  </body>
+    <div class="row">
+      <div class="col-xs-9">
+        <input class="form-control" type="text" ng-model="formData.text"></input>
+      </div>
+      <div class="col-xs-3">
+        <button class="btn btn-sm btn-danger" type="button" ng-click="createTodo()"> <i class="fa fa-check"></i>Add</button>
+      </div>
+    </div>
+
+
+  </div>
+
+  <script src="build/bundle.js"></script>
+  <script src="build/build.min.js"></script>
+</body>
+
 </html>
