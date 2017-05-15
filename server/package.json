@@ -1,21 +1,25 @@
 {
-  "name": "mean-template",
+  "name": "todo-app",
   "version": "1.0.0",
-  "description": "mean template",
-  "main": "index.js",
+  "description": "Todo App",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "mean",
-    "template"
+    "Todo",
+    "App",
+    "MEAN"
   ],
-  "author": "Daniel Mason",
+  "author": "Sanjay Keshav",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.17.1",
     "del": "^2.2.2",
     "express": "^4.15.2",
+    "method-override": "^2.3.8",
     "mongoose": "^4.9.7",
+    "morgan": "^1.8.1",
     "path": "^0.12.7"
   },
   "devDependencies": {

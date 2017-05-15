@@ -19,11 +19,11 @@ var paths = {
 };
 
 gulp.task('server', function (cb) {
-  exec('node server/index.js', function (err, stdout, stderr) {
-    console.log(stdout);
-    console.log(stderr);
-    cb(err);
-  });
+	exec('node server/server.js', function (err, stdout, stderr) {
+		console.log(stdout);
+		console.log(stderr);
+		cb(err);
+	});
 });
 
 gulp.task('test', function (done) {

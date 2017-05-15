@@ -1,23 +1,24 @@
 {
-  "name": "mean-template",
+  "name": "todo-app",
   "version": "1.0.0",
-  "description": "mean template",
-  "main": "index.js",
+  "description": "todo-app",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "mean",
-    "template"
+    "todo",
+    "app"
   ],
-  "author": "Daniel Mason",
+  "author": "Sanjay Keshav",
   "license": "ISC",
   "dependencies": {
     "angular": "^1.6.4",
     "bootstrap": "^3.3.7",
     "font-awesome": "^4.7.0",
     "gulp-clean-css": "^3.0.4",
-    "jquery": "^3.2.1"
+    "jquery": "^3.2.1",
+    "ng-tags-input": "^3.2.0"
   },
   "devDependencies": {
     "angular-mocks": "^1.6.4",
