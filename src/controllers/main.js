@@ -26,7 +26,7 @@ angular.module('todoApp')
 			// });
 		};
 
-		console.log($scope.loadTags('hello'));
+		//console.log($scope.loadTags('hello'));
 
 		// GET =====================================================================
 		// when landing on the page, get all todos and show them
