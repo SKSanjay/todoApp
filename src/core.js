@@ -1,1 +1,1 @@
-angular.module('todoApp', ['ngTagsInput']);
+angular.module('todoApp', ['ngTagsInput', 'angular-rating-icons']);

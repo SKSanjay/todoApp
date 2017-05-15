@@ -9,39 +9,40 @@
   <div class="container" ng-controller="TodoController as vm">
 
     <div class="jumbotron">
-      <h1>Todo Manager</h1>
-      Current Todos:{{todos.length}}
+      <h1>Todo Manager
+          <span class="pull-right">
+              Current Todos:<span class="label label-default">{{todos.length}}</span>
+          </span>
+      </h1>
     </div>
 
-    <!--<div class="col-xs-3">
-         <div class="input-group">
-          <tags-input ng-model="tags" class="ti-input-lg">
-              <auto-complete source="loadTags($query)"></auto-complete>
-          </tags-input>
-        </div>
-       </div>-->
-
-    <div ng-repeat="todo in todos" class="row">
+    <div ng-repeat="todo in todos" class="row" style="padding:5px;">
       <div class="col-xs-9">
         <input class="form-control" type="text" ng-model="todo.text"></input>
+        <div class="input-group" style="width:100%">
+          <tags-input ng-model="tags" class="ti-input-md" style="padding-top:3px;">
+            <auto-complete source="loadTags($query)"></auto-complete>
+          </tags-input>
+        </div>
+        <div data-angular-rating-icons ng-model="todo.ratingValue"></div>
       </div>
       <div class="col-xs-3">
-        <span><button class="btn btn-success" ng-click="updateTodo(todo._id, todo.text)">Update</button></span>
-        <span><button class="btn btn-danger" ng-click="deleteTodo(todo._id)">Delete</button></span>
+        <div class="btn-group btn-group-justified">
+          <a type="button" class="btn btn-success" ng-click="updateTodo(todo._id, todo.text)">Update</a>
+          <a type="button" class="btn btn-danger" ng-click="deleteTodo(todo._id)">Delete</a>
+        </div>
       </div>
     </div>
 
-    <div class="row">
+    <div class="row" style="padding:5px;">
       <div class="col-xs-9">
         <input class="form-control" type="text" ng-model="formData.text"></input>
       </div>
       <div class="col-xs-3">
-        <button class="btn btn-sm btn-danger" type="button" ng-click="createTodo()"> <i class="fa fa-check"></i>Add</button>
+        <button class="btn btn-primary btn-group-justified" type="button" ng-click="createTodo()"> <i class="fa fa-check"></i>Add</button>
       </div>
     </div>
 
-
-  </div>
 
   <script src="build/bundle.js"></script>
   <script src="build/build.min.js"></script>
