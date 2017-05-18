@@ -36,13 +36,16 @@
 
     <div class="row" style="padding:5px;">
       <div class="col-xs-9">
-        <input class="form-control" type="text" ng-model="formData.text"></input>
+        <form name="addTodo">
+          <input name="addTodoText" class="form-control" type="text" ng-model="formData.text" ng-minlength="1" required></input>
+        </form>
+        <span class="error" ng-if="addTodo.addTodoText.$dirty && addTodo.addTodoText.$error.required">Required!</span><br>
+        <span class="error" ng-if="addTodo.addTodoText.$error.minlength">You need to add some text before submitting something todo!</span><br>
       </div>
       <div class="col-xs-3">
-        <button class="btn btn-primary btn-group-justified" type="button" ng-click="createTodo()"> <i class="fa fa-check"></i>Add</button>
+        <button class="btn btn-primary btn-group-justified" type="button" ng-click="createTodo()" ng-disabled="formData.text.length < 1 || formData.text === undefined"> <i class="fa fa-check"></i>Add</button>
       </div>
     </div>
-
 
   <script src="build/bundle.js"></script>
   <script src="build/build.min.js"></script>

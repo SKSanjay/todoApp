@@ -3,6 +3,7 @@ angular.module('todoApp')
 	// inject the Todo service factory into our controller
 	.controller('TodoController', ['$scope','$http','Todos', function($scope, $http, Todos) {
 		$scope.formData = {};
+		$scope.formData.text ="";
 		$scope.loading = true;
 
 		$scope.tags = [

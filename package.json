@@ -14,11 +14,13 @@
   "license": "ISC",
   "dependencies": {
     "angular": "^1.6.4",
+    "angular-clock": "^0.5.1",
     "angular-rating-icons": "^1.0.3",
     "bootstrap": "^3.3.7",
     "font-awesome": "^4.7.0",
     "gulp-clean-css": "^3.0.4",
     "jquery": "^3.2.1",
+    "ng-material-datetimepicker": "^1.6.2",
     "ng-tags-input": "^3.2.0"
   },
   "devDependencies": {
