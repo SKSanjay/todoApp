@@ -1,7 +1,7 @@
 <html>
 
 <head>
-  <title>Todo Manager 0.0.1</title>
+    <title>Todo Manager 0.0.1</title>
 </head>
 
 <body ng-app="todoApp">
@@ -9,15 +9,86 @@
   <div class="container" ng-controller="TodoController as vm">
 
     <div class="jumbotron">
-      <h1>Todo Manager
-          <span class="pull-right">
-              Current Todos:<span class="label label-default">{{todos.length}}</span>
-          </span>
-      </h1>
+
+      <div class="row">
+        <div class="col-md-2" style="background-color:red;">
+          <ds-widget-clock show-analog theme="dark"></ds-widget-clock>
+        </div>
+
+        <div class="col-md-8" style="background-color:green; text-align:center;">
+          <h1>
+            Todo Manager
+          </h1>
+        </div>
+
+        <div class="col-md-2" style="background-color:blue;">
+          <h3>
+            <div style="text-align:center;">
+              Current Todos:
+            </div>
+          </h3>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-md-2" style="background-color:red; font-size: 7px;">
+          <ds-widget-clock theme="dark" show-digital theme="blue-light" digital-format="'hh:mm:ss a'"></ds-widget-clock>
+        </div>
+
+        <div class="col-md-8" style="background-color:green; text-align:center;">
+          <h3>
+            <form ng-submit="$event.preventDefault()">
+            <md-autocomplete ng-disabled="ctrl.isDisabled" md-no-cache="ctrl.noCache" md-selected-item="ctrl.selectedItem" md-search-text-change="ctrl.searchTextChange(ctrl.searchText)" md-search-text="ctrl.searchText" md-selected-item-change="ctrl.selectedItemChange(item)" md-items="item in ctrl.querySearch(ctrl.searchText)" md-item-text="item.name" md-min-length="0" placeholder="Pick an Angular repository" md-menu-class="autocomplete-custom-template">
+              <md-item-template>
+                <span class="item-title">
+                  <md-icon md-svg-icon="img/icons/octicon-repo.svg"></md-icon>
+                  <span> {{item.name}} </span>
+                </span>
+                <span class="item-metadata">
+                  <span>
+                    <strong>{{item.watchers}}</strong> watchers
+                  </span>
+                  <span>
+                    <strong>{{item.forks}}</strong> forks
+                  </span>
+                </span>
+              </md-item-template>
+            </md-autocomplete>
+          </form>
+          </h3>
+        </div>
+
+        <div class="col-md-2" style="background-color:blue;">
+          <h1>
+            <div style="text-align:center;">
+              <span class="label label-default">{{todos.length}}</span>
+            </div>
+          </h1>
+        </div>
+
+      </div>
+
     </div>
 
     <div ng-repeat="todo in todos" class="row" style="padding:5px;">
-      <div class="col-xs-9">
+
+      <div class="col-xs-3">
+
+        <md-content layout-padding="" ng-cloak="" class="datepickerdemoBasicUsage" ng-app="MyApp">
+        <div layout-gt-xs="row">
+          <div flex-gt-xs="">
+            <h4>Custom calendar trigger</h4>
+            <md-datepicker ng-model="ctrl.myDate" md-placeholder="Enter date" md-is-open="ctrl.isOpen"></md-datepicker>
+            <md-button class="md-primary md-raised" ng-click="ctrl.isOpen = true">Open</md-button>
+          </div>
+        </div>
+      </md-content>
+
+      </div>
+
+
+      <div class="col-xs-6">
         <input class="form-control" type="text" ng-model="todo.text"></input>
         <div class="input-group" style="width:100%">
           <tags-input ng-model="tags" class="ti-input-md" style="padding-top:3px;">
@@ -46,6 +117,7 @@
         <button class="btn btn-primary btn-group-justified" type="button" ng-click="createTodo()" ng-disabled="formData.text.length < 1 || formData.text === undefined"> <i class="fa fa-check"></i>Add</button>
       </div>
     </div>
+  </div>
 
   <script src="build/bundle.js"></script>
   <script src="build/build.min.js"></script>

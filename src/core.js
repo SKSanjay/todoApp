@@ -1,1 +1,1 @@
-angular.module('todoApp', ['ngTagsInput', 'angular-rating-icons', 'angularClock']);
+angular.module('todoApp', ['ngTagsInput', 'angular-rating-icons', 'ds.clock', 'ngMaterial', 'ngMaterialDatePicker']);
