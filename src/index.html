@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>Todo Manager 0.0.1</title>
+    <title>Todo Manager 0.0.10</title>
 </head>
 
 <body ng-app="todoApp">
@@ -11,113 +11,144 @@
     <div class="jumbotron">
 
       <div class="row">
-        <div class="col-md-2" style="background-color:red;">
-          <ds-widget-clock show-analog theme="dark"></ds-widget-clock>
+        <div class="col-md-2">
+
+          <div class="row">
+            <ds-widget-clock show-analog theme="dark"></ds-widget-clock>
+            <ds-widget-clock theme="dark" show-digital theme="blue-light" digital-format="'hh:mm:ss a'" style="font-size:7px;"></ds-widget-clock>
+            <div style="text-align:center; font-size:17px;">{{date}}</div>
+          </div>
+
         </div>
 
-        <div class="col-md-8" style="background-color:green; text-align:center;">
-          <h1>
-            Todo Manager
-          </h1>
+        <div class="col-md-8" style="text-align:center;">
+          <div class="row">
+            <h1>
+              Todo Manager
+            </h1>
+
+            <h3 style="position:relative; top:20px;">
+              <form ng-submit="$event.preventDefault()">
+                <md-autocomplete ng-disabled="ctrl.isDisabled" md-no-cache="ctrl.noCache" md-selected-item="ctrl.selectedItem" md-search-text-change="ctrl.searchTextChange(ctrl.searchText)" md-search-text="ctrl.searchText" md-selected-item-change="ctrl.selectedItemChange(item)" md-items="item in ctrl.querySearch(ctrl.searchText)" md-item-text="item.name" md-min-length="0" placeholder="Pick an Angular repository" md-menu-class="autocomplete-custom-template">
+                  <md-item-template>
+                    <span class="item-title">
+                      <md-icon md-svg-icon="img/icons/octicon-repo.svg"></md-icon>
+                      <span> {{item.name}} </span>
+                    </span>
+                    <span class="item-metadata">
+                      <span>
+                        <strong>{{item.watchers}}</strong> watchers
+                      </span>
+                      <span>
+                        <strong>{{item.forks}}</strong> forks
+                      </span>
+                    </span>
+                  </md-item-template>
+                </md-autocomplete>
+              </form>
+            </h3>
+
         </div>
 
-        <div class="col-md-2" style="background-color:blue;">
-          <h3>
-            <div style="text-align:center;">
-              Current Todos:
-            </div>
-          </h3>
         </div>
 
-      </div>
+        <div class="col-md-2">
 
-      <div class="row">
-        <div class="col-md-2" style="background-color:red; font-size: 7px;">
-          <ds-widget-clock theme="dark" show-digital theme="blue-light" digital-format="'hh:mm:ss a'"></ds-widget-clock>
-        </div>
+          <div class="row">
+            <h3>
+              <div style="text-align:center; position:relative; top:30px;">
+                Current Todos:
+              </div>
+            </h3>
+          </div>
 
-        <div class="col-md-8" style="background-color:green; text-align:center;">
-          <h3>
-            <form ng-submit="$event.preventDefault()">
-            <md-autocomplete ng-disabled="ctrl.isDisabled" md-no-cache="ctrl.noCache" md-selected-item="ctrl.selectedItem" md-search-text-change="ctrl.searchTextChange(ctrl.searchText)" md-search-text="ctrl.searchText" md-selected-item-change="ctrl.selectedItemChange(item)" md-items="item in ctrl.querySearch(ctrl.searchText)" md-item-text="item.name" md-min-length="0" placeholder="Pick an Angular repository" md-menu-class="autocomplete-custom-template">
-              <md-item-template>
-                <span class="item-title">
-                  <md-icon md-svg-icon="img/icons/octicon-repo.svg"></md-icon>
-                  <span> {{item.name}} </span>
-                </span>
-                <span class="item-metadata">
-                  <span>
-                    <strong>{{item.watchers}}</strong> watchers
-                  </span>
-                  <span>
-                    <strong>{{item.forks}}</strong> forks
-                  </span>
-                </span>
-              </md-item-template>
-            </md-autocomplete>
-          </form>
-          </h3>
-        </div>
+          <div class="row">
+            <h1>
+              <div style="text-align:center; position:relative; top:42px;">
+                <span class="label label-default">{{todos.length}}</span>
+              </div>
+            </h1>
+          </div>
 
-        <div class="col-md-2" style="background-color:blue;">
-          <h1>
-            <div style="text-align:center;">
-              <span class="label label-default">{{todos.length}}</span>
-            </div>
-          </h1>
         </div>
 
       </div>
 
     </div>
 
-    <div ng-repeat="todo in todos" class="row" style="padding:5px;">
+    <div class="row">
 
       <div class="col-xs-3">
 
         <md-content layout-padding="" ng-cloak="" class="datepickerdemoBasicUsage" ng-app="MyApp">
-        <div layout-gt-xs="row">
-          <div flex-gt-xs="">
-            <h4>Custom calendar trigger</h4>
-            <md-datepicker ng-model="ctrl.myDate" md-placeholder="Enter date" md-is-open="ctrl.isOpen"></md-datepicker>
-            <md-button class="md-primary md-raised" ng-click="ctrl.isOpen = true">Open</md-button>
+          <div layout-gt-xs="row">
+            <div flex-gt-xs="">
+              <md-datepicker ng-model="ctrl.myDate" md-placeholder="Enter date" md-open-on-focus=""></md-datepicker>
+            </div>
           </div>
-        </div>
-      </md-content>
+        </md-content>
 
       </div>
 
-
-      <div class="col-xs-6">
-        <input class="form-control" type="text" ng-model="todo.text"></input>
-        <div class="input-group" style="width:100%">
-          <tags-input ng-model="tags" class="ti-input-md" style="padding-top:3px;">
-            <auto-complete source="loadTags($query)"></auto-complete>
-          </tags-input>
-        </div>
-        <div data-angular-rating-icons ng-model="todo.ratingValue"></div>
-      </div>
-      <div class="col-xs-3">
-        <div class="btn-group btn-group-justified">
-          <a type="button" class="btn btn-success" ng-click="updateTodo(todo._id, todo.text)">Update</a>
-          <a type="button" class="btn btn-danger" ng-click="deleteTodo(todo._id)">Delete</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="row" style="padding:5px;">
       <div class="col-xs-9">
-        <form name="addTodo">
-          <input name="addTodoText" class="form-control" type="text" ng-model="formData.text" ng-minlength="1" required></input>
-        </form>
-        <span class="error" ng-if="addTodo.addTodoText.$dirty && addTodo.addTodoText.$error.required">Required!</span><br>
-        <span class="error" ng-if="addTodo.addTodoText.$error.minlength">You need to add some text before submitting something todo!</span><br>
+
+        <div class="row">
+          <div ng-repeat="todo in todos" class="row" style="padding:5px;">
+
+            <div class="col-xs-1">
+              <i class="fa fa-tags" aria-hidden="true"></i>
+              <i class="fa fa-file-text" aria-hidden="true"></i>
+              <i class="fa fa-star-half-o" aria-hidden="true"></i>
+            </div>
+
+            <div class="col-xs-8">
+              <input class="form-control" type="text" ng-model="todo.text"></input>
+
+              <div class="input-group" style="width:100%">
+                <tags-input ng-model="tags" class="ti-input-md">
+                  <auto-complete source="loadTags($query)"></auto-complete>
+                </tags-input>
+              </div>
+              <div data-angular-rating-icons ng-model="todo.ratingValue"></div>
+            </div>
+
+            <div class="col-xs-3">
+              <div class="btn-group btn-group-justified">
+                <a type="button" class="btn btn-success" ng-click="updateTodo(todo._id, todo.text)">Update</a>
+                <a type="button" class="btn btn-danger" ng-click="deleteTodo(todo._id)">Delete</a>
+              </div>
+              <a type="button" style="width:100%;" class="btn btn-success">Complete</a>
+              <span>Date Created: 1/1/2017</span>
+              </br>
+              <span>Date Modified: 2/2/2018</span>
+              </br>
+              <span>Date Completed: 3/3/2019</span>
+            </div>
+
+          </div>
+
+          <!--Add New Todo-->
+          <div class="row" style="padding:5px;">
+            <div class="col-xs-9">
+              <form name="addTodo">
+                <input name="addTodoText" class="form-control" type="text" ng-model="formData.text" ng-minlength="1" required></input>
+              </form>
+              <span class="error" ng-if="addTodo.addTodoText.$dirty && addTodo.addTodoText.$error.required">Required!</span><br>
+              <span class="error" ng-if="addTodo.addTodoText.$error.minlength">You need to add some text before submitting something todo!</span><br>
+            </div>
+            <div class="col-xs-3">
+              <button class="btn btn-primary btn-group-justified" type="button" ng-click="createTodo()" ng-disabled="formData.text.length < 1 || formData.text === undefined"> <i class="fa fa-check"></i>Add</button>
+            </div>
+          </div>
+
+        </div>
       </div>
-      <div class="col-xs-3">
-        <button class="btn btn-primary btn-group-justified" type="button" ng-click="createTodo()" ng-disabled="formData.text.length < 1 || formData.text === undefined"> <i class="fa fa-check"></i>Add</button>
-      </div>
+
     </div>
-  </div>
+
+    <!--{{todo | json}}-->
+
+
 
   <script src="build/bundle.js"></script>
   <script src="build/build.min.js"></script>

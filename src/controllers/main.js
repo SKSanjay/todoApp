@@ -5,6 +5,7 @@ angular.module('todoApp')
 		$scope.formData = {};
 		$scope.formData.text ="";
 		$scope.loading = true;
+		$scope.date = moment().format('DD-MM-YYYY');
 
 		$scope.tags = [
 			{ text: 'just' },
