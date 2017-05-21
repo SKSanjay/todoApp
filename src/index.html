@@ -80,13 +80,22 @@
 
       <div class="col-xs-3">
 
-        <md-content layout-padding="" ng-cloak="" class="datepickerdemoBasicUsage" ng-app="MyApp">
-          <div layout-gt-xs="row">
-            <div flex-gt-xs="">
-              <md-datepicker ng-model="ctrl.myDate" md-placeholder="Enter date" md-open-on-focus=""></md-datepicker>
-            </div>
+        <input date-range-picker class="form-control date-picker" type="text" ng-model="datePicker.date"/>
+
+        <uib-accordion close-others="oneAtATime">
+          <div uib-accordion-group class="panel-default" is-open="status.isCustomHeaderOpen" heading="Static Header, initially expanded">
+            <uib-accordion-heading>
+              <span style="font-size:15px;">1/01/2017-1/02/2017 Summary</span>
+              <i class="pull-right" ng-class="{'fa fa-arrow-down': status.isCustomHeaderOpen, 'fa fa-arrow-right': !status.isCustomHeaderOpen}"></i>
+            </uib-accordion-heading>
+              Tasks Completed: 5/20
+              </br>
+              Average Difficulty: 3 Stars
+              </br>
+              Most Common Tag: MEAN
+              </br>
           </div>
-        </md-content>
+        </uib-accordion>
 
       </div>
 

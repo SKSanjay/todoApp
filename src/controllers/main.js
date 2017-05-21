@@ -6,6 +6,11 @@ angular.module('todoApp')
 		$scope.formData.text ="";
 		$scope.loading = true;
 		$scope.date = moment().format('DD-MM-YYYY');
+		$scope.datePicker = {};
+		$scope.datePicker.date = {
+			startDate: null,
+			endDate: null
+    	};
 
 		$scope.tags = [
 			{ text: 'just' },
