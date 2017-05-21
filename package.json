@@ -14,6 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "angular": "^1.6.4",
+    "angular-advanced-searchbox": "^3.0.0",
     "angular-clock": "^0.5.1",
     "angular-daterangepicker": "^0.2.3-alpha1",
     "angular-material-accordion": "^1.0.1",

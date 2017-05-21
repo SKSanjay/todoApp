@@ -1,1 +1,11 @@
-angular.module('todoApp', ['ngTagsInput', 'angular-rating-icons', 'ds.clock', 'ngMaterial', 'ngMaterialDatePicker', 'angAccordion', 'ui.bootstrap', 'daterangepicker']);
+angular.module('todoApp', 
+    ['ngTagsInput',
+     'angular-rating-icons',
+     'ds.clock',
+     'ngMaterial',
+     'ngMaterialDatePicker',
+     'angAccordion', 
+     'ui.bootstrap', 
+     'daterangepicker',
+     'angular-advanced-searchbox'
+    ]);

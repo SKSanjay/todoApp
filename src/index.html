@@ -27,26 +27,11 @@
               Todo Manager
             </h1>
 
-            <h3 style="position:relative; top:20px;">
-              <form ng-submit="$event.preventDefault()">
-                <md-autocomplete ng-disabled="ctrl.isDisabled" md-no-cache="ctrl.noCache" md-selected-item="ctrl.selectedItem" md-search-text-change="ctrl.searchTextChange(ctrl.searchText)" md-search-text="ctrl.searchText" md-selected-item-change="ctrl.selectedItemChange(item)" md-items="item in ctrl.querySearch(ctrl.searchText)" md-item-text="item.name" md-min-length="0" placeholder="Pick an Angular repository" md-menu-class="autocomplete-custom-template">
-                  <md-item-template>
-                    <span class="item-title">
-                      <md-icon md-svg-icon="img/icons/octicon-repo.svg"></md-icon>
-                      <span> {{item.name}} </span>
-                    </span>
-                    <span class="item-metadata">
-                      <span>
-                        <strong>{{item.watchers}}</strong> watchers
-                      </span>
-                      <span>
-                        <strong>{{item.forks}}</strong> forks
-                      </span>
-                    </span>
-                  </md-item-template>
-                </md-autocomplete>
-              </form>
-            </h3>
+          <nit-advanced-searchbox
+            ng-model="searchParams"
+            parameters="availableSearchParams"
+            placeholder="Search...">
+          </nit-advanced-searchbox>
 
         </div>
 

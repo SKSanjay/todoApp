@@ -7,10 +7,19 @@ angular.module('todoApp')
 		$scope.loading = true;
 		$scope.date = moment().format('DD-MM-YYYY');
 		$scope.datePicker = {};
+		//Issue with this property for some reason
 		$scope.datePicker.date = {
 			startDate: null,
 			endDate: null
     	};
+
+		$scope.availableSearchParams = [
+          { key: "name", name: "Name", placeholder: "Name..." },
+          { key: "city", name: "City", placeholder: "City..." },
+          { key: "country", name: "Country", placeholder: "Country..." },
+          { key: "emailAddress", name: "E-Mail", placeholder: "E-Mail...", allowMultiple: true },
+          { key: "job", name: "Job", placeholder: "Job..." }
+        ];
 
 		$scope.tags = [
 			{ text: 'just' },
