@@ -16,8 +16,8 @@ angular.module('todoApp')
 			delete : function(id) {
 				return $http.delete('/api/todos/' + id);
 			},
-			put : function(id, userInput) {
-				return $http.put('/api/todos/' + id +'/'+ userInput);
+			put : function(id, userInput, difficulty) {
+				return $http.put('/api/todos/' + id +'/'+ userInput +'/'+ difficulty);
 			}
 		}
 	}]);

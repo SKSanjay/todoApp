@@ -21,6 +21,7 @@
     "angular-rating-icons": "^1.0.3",
     "angular-ui-bootstrap": "^2.5.0",
     "bootstrap": "^3.3.7",
+    "bootstrap-daterangepicker": "^2.1.25",
     "font-awesome": "^4.7.0",
     "gulp-clean-css": "^3.0.4",
     "jquery": "^3.2.1",

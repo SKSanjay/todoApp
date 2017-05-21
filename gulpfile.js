@@ -12,7 +12,7 @@ var exec = require('child_process').exec;
 
 var paths = {
   scripts: ['src/core/app.js','src/*.js', 'src/*/*.js', 'src/*/*/*.js', 'src/*/*/*/*.js', 'src/*/*/*/*/*.js'],
-	fonts: ['node_modules/font-awesome/fonts/fontawesome-webfont.*'],
+	fonts: ['node_modules/font-awesome/fonts/fontawesome-webfont.*', 'node_modules/bootstrap/fonts/glyphicons-halflings-regular.*'],
 	html: ['src/*.html', 'src/*/*.html', 'src/*/*/*.html', 'src/*/*/*/*.html', 'src/*/*/*/*/*.html'],
 	css: ['src/*.css', 'src/*/*.css', 'src/*/*/*.css', 'src/*/*/*/*.css', 'src/*/*/*/*/*.css'],
 	entry: ['entry.js']

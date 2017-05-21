@@ -2,11 +2,23 @@ angular.module('todoApp')
 
 	.controller('TodoController', ['$scope','$http','Todos', function($scope, $http, Todos) {
 
+		//Function calc avg	
+		$scope.calculateAverage = function(MyData){ 
+			var sum = 0; 
+			for(var i = 0; i < MyData.length; i++){
+					sum += parseInt(MyData[i].difficulty, 10); //don't forget to add the base 
+			}
+
+			var avg = sum/MyData.length;
+
+			return avg; 
+		};
+
 		//Init: Page load info
     $scope.date = moment().format('DD-MM-YYYY');
     $scope.loading = true;
 		$scope.todoDoc = {};
-		$scope.todoDoc.text ="";
+
 
     //Init: Todo (They should be date objects)
     $scope.todoDoc.dateCreated ="1/1/2017";
@@ -25,14 +37,6 @@ angular.module('todoApp')
 		$scope.availableSearchParams = [
       { key: "emailAddress", name: "E-Mail", placeholder: "E-Mail...", allowMultiple: true }
     ];
-
-		//Tag init (probably needs to become an empty object)
-		$scope.todoDoc.tags = [
-			{ text: 'just' },
-			{ text: 'some' },
-			{ text: 'cool' },
-			{ text: 'tags' }
-		];
 
 		// GET =====================================================================
 		// when landing on the page, get all todos and show them
@@ -67,12 +71,12 @@ angular.module('todoApp')
 
 		// UPDATE ==================================================================
 		// when submitting the add form, send the text to the node API
-		$scope.updateTodo = function(id, text) {
+		$scope.updateTodo = function(id, text, difficulty) {
 
-			console.log(id,text);
+			console.log(id,text, difficulty);
 
 			// call the create function from our service (returns a promise object)
-			Todos.put(id, text)
+			Todos.put(id, text, difficulty)
 
 			// if successful creation, call our get function to get all the new todos
 			.then(function(data) {

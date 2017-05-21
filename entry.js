@@ -1,5 +1,5 @@
 //Initial Bootstrapping of core components
-var $ = require('jquery')(window);
+window.$ = require('jquery');
 global.jQuery = require("jquery");
 window.angular = require('angular');
 window.moment = require('moment');
@@ -34,7 +34,11 @@ var angularMaterialDateTimePickerCss = require('./node_modules/ng-material-datet
 
 //Angular UI Bootstrap
 var angularUIBootstrap = require('angular-ui-bootstrap');
-var angularUIBootstrapCss = ('./node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css');
+var angularUIBootstrapCss = require('./node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css');
+
+//Vanilla Datetime Picker
+var dateTimePicker = require('bootstrap-daterangepicker');
+var dateTimePickerCss = require('./node_modules/bootstrap-daterangepicker/daterangepicker.css');
 
 //Angular Datetime Picker
 var angularBootstrapDateTimePicker = require('angular-daterangepicker');

@@ -67,11 +67,12 @@ module.exports = function (app) {
         });
     });
 
-    app.put('/api/todos/:todo_id/:text', function(req, res) {
+    app.put('/api/todos/:todo_id/:text/:difficulty', function(req, res) {
         //if (req) return handleError(req);
        var _id = req.params.todo_id;
        var text = req.params.text;
-       var updateProperty = {$set: {text:text}};
+       var difficulty = req.params.difficulty;
+       var updateProperty = {$set: {text:text, difficulty:difficulty}};
         Todo.findByIdAndUpdate(_id, updateProperty,{new: true}, function (err, todo) {
             if (err){
                 res.send(err);
