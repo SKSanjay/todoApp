@@ -1,48 +1,38 @@
 angular.module('todoApp')
 
-	// inject the Todo service factory into our controller
 	.controller('TodoController', ['$scope','$http','Todos', function($scope, $http, Todos) {
-		$scope.formData = {};
-		$scope.formData.text ="";
-		$scope.loading = true;
-		$scope.date = moment().format('DD-MM-YYYY');
+
+		//Init: Page load info
+    $scope.date = moment().format('DD-MM-YYYY');
+    $scope.loading = true;
+		$scope.todoDoc = {};
+		$scope.todoDoc.text ="";
+
+    //Init: Todo (They should be date objects)
+    $scope.todoDoc.dateCreated ="1/1/2017";
+    $scope.todoDoc.dateModified ="2/2/2018";
+    $scope.todoDoc.dateCompleted ="3/3/2019";
+
+    //Init: Datepicker
 		$scope.datePicker = {};
 		//Issue with this property for some reason
 		$scope.datePicker.date = {
 			startDate: null,
 			endDate: null
-    	};
+    };
 
+		//Search init (dummy data)
 		$scope.availableSearchParams = [
-          { key: "name", name: "Name", placeholder: "Name..." },
-          { key: "city", name: "City", placeholder: "City..." },
-          { key: "country", name: "Country", placeholder: "Country..." },
-          { key: "emailAddress", name: "E-Mail", placeholder: "E-Mail...", allowMultiple: true },
-          { key: "job", name: "Job", placeholder: "Job..." }
-        ];
+      { key: "emailAddress", name: "E-Mail", placeholder: "E-Mail...", allowMultiple: true }
+    ];
 
-		$scope.tags = [
+		//Tag init (probably needs to become an empty object)
+		$scope.todoDoc.tags = [
 			{ text: 'just' },
 			{ text: 'some' },
 			{ text: 'cool' },
 			{ text: 'tags' }
 		];
-
-		$scope.loadTags = function(query) {
-
-			return $http.post('/api/todos/' + query);
-			// call the create function from our service (returns a promise object)
-			// Todos.getSearch(query)
-
-			// // if successful creation, call our get function to get all the new todos
-			// .then(function(data) {
-			// 	$scope.loading = false;
-			// 	$scope.formData = {}; // clear the form so our user is ready to enter another
-			// 	$scope.todos = data.data; // assign our new list of todos
-			// });
-		};
-
-		//console.log($scope.loadTags('hello'));
 
 		// GET =====================================================================
 		// when landing on the page, get all todos and show them
@@ -98,11 +88,11 @@ angular.module('todoApp')
 		$scope.deleteTodo = function(id) {
 			$scope.loading = true;
 
-			Todos.delete(id)
-				// if successful creation, call our get function to get all the new todos
-				.then(function(data) {
-					$scope.loading = false;
-					$scope.todos = data.data; // assign our new list of todos
-				});
+      Todos.delete(id)
+      // if successful creation, call our get function to get all the new todos
+      .then(function(data) {
+        $scope.loading = false;
+        $scope.todos = data.data; // assign our new list of todos
+      });
 		};
 	}]);

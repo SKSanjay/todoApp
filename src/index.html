@@ -1,44 +1,30 @@
 <html>
-
-<head>
+  <head>
     <title>Todo Manager 0.0.10</title>
-</head>
+  </head>
 
-<body ng-app="todoApp">
-
-  <div class="container" ng-controller="TodoController as vm">
-
+  <body ng-app="todoApp">
+    <div class="container" ng-controller="TodoController as vm">
     <div class="jumbotron">
-
       <div class="row">
+        <!-- Clock & Date -->
         <div class="col-md-2">
-
           <div class="row">
             <ds-widget-clock show-analog theme="dark"></ds-widget-clock>
             <ds-widget-clock theme="dark" show-digital theme="blue-light" digital-format="'hh:mm:ss a'" style="font-size:7px;"></ds-widget-clock>
             <div style="text-align:center; font-size:17px;">{{date}}</div>
           </div>
-
         </div>
-
+        <!-- Title -->
         <div class="col-md-8" style="text-align:center;">
           <div class="row">
             <h1>
               Todo Manager
             </h1>
-
-          <nit-advanced-searchbox
-            ng-model="searchParams"
-            parameters="availableSearchParams"
-            placeholder="Search...">
-          </nit-advanced-searchbox>
-
+          </div>
         </div>
-
-        </div>
-
+        <!-- Todo Count -->
         <div class="col-md-2">
-
           <div class="row">
             <h3>
               <div style="text-align:center; position:relative; top:30px;">
@@ -46,7 +32,6 @@
               </div>
             </h3>
           </div>
-
           <div class="row">
             <h1>
               <div style="text-align:center; position:relative; top:42px;">
@@ -54,98 +39,98 @@
               </div>
             </h1>
           </div>
-
         </div>
-
       </div>
-
     </div>
-
     <div class="row">
-
       <div class="col-xs-3">
-
+        <!-- Date Picker -->
         <input date-range-picker class="form-control date-picker" type="text" ng-model="datePicker.date"/>
+        <!-- Summary Accordion -->
+        <nit-advanced-searchbox ng-model="searchParams" placeholder="Search..."></nit-advanced-searchbox>
 
+        <!-- Summary Accordion -->
         <uib-accordion close-others="oneAtATime">
           <div uib-accordion-group class="panel-default" is-open="status.isCustomHeaderOpen" heading="Static Header, initially expanded">
             <uib-accordion-heading>
               <span style="font-size:15px;">1/01/2017-1/02/2017 Summary</span>
               <i class="pull-right" ng-class="{'fa fa-arrow-down': status.isCustomHeaderOpen, 'fa fa-arrow-right': !status.isCustomHeaderOpen}"></i>
             </uib-accordion-heading>
-              Tasks Completed: 5/20
-              </br>
-              Average Difficulty: 3 Stars
-              </br>
-              Most Common Tag: MEAN
-              </br>
+            Tasks Completed: 5/20
+            </br>
+            Average Difficulty: 3 Stars
+            </br>
+            Most Common Tag: MEAN
+            </br>
           </div>
         </uib-accordion>
 
+        <!-- Debugging -->
+        <pre>{{todoDoc | json}}</pre>
+
       </div>
-
       <div class="col-xs-9">
-
         <div class="row">
           <div ng-repeat="todo in todos" class="row" style="padding:5px;">
 
-            <div class="col-xs-1">
-              <i class="fa fa-tags" aria-hidden="true"></i>
-              <i class="fa fa-file-text" aria-hidden="true"></i>
-              <i class="fa fa-star-half-o" aria-hidden="true"></i>
-            </div>
+            <!-- Main Input Fields -->
+            <div class="col-xs-9">
 
-            <div class="col-xs-8">
-              <input class="form-control" type="text" ng-model="todo.text"></input>
+              <!-- Todo Field -->
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <i class="fa fa-fw fa-file-text" aria-hidden="true"></i>
+                </span>
+                <input class="form-control" type="text" ng-model="todoDocs.text" placeholder="Write your task here"></input>
+              </div>
 
+              <!-- Tags Field -->
               <div class="input-group" style="width:100%">
-                <tags-input ng-model="tags" class="ti-input-md">
+                <span class="input-group-addon">
+                  <i class="fa fa-fw fa-tags" aria-hidden="true"></i> 
+                </span> 
+                <tags-input ng-model="todoDoc.tags" class="ti-input-md">
                   <auto-complete source="loadTags($query)"></auto-complete>
                 </tags-input>
               </div>
-              <div data-angular-rating-icons ng-model="todo.ratingValue"></div>
+
+              <!-- Ratings Field-->
+              <div data-angular-rating-icons ng-model="todoDoc.ratingValue"></div>
             </div>
 
+            <!-- Buttons & Dates -->
             <div class="col-xs-3">
               <div class="btn-group btn-group-justified">
                 <a type="button" class="btn btn-success" ng-click="updateTodo(todo._id, todo.text)">Update</a>
                 <a type="button" class="btn btn-danger" ng-click="deleteTodo(todo._id)">Delete</a>
               </div>
               <a type="button" style="width:100%;" class="btn btn-success">Complete</a>
-              <span>Date Created: 1/1/2017</span>
+              <span>Date Created: {{todoDoc.dateCreated}}</span>
               </br>
-              <span>Date Modified: 2/2/2018</span>
+              <span>Date Modified: {{todoDoc.dateModified}}</span>
               </br>
-              <span>Date Completed: 3/3/2019</span>
+              <span>Date Completed: {{todoDoc.dateCompleted}}</span>
             </div>
-
           </div>
-
           <!--Add New Todo-->
           <div class="row" style="padding:5px;">
             <div class="col-xs-9">
               <form name="addTodo">
-                <input name="addTodoText" class="form-control" type="text" ng-model="formData.text" ng-minlength="1" required></input>
+                <input name="addTodoText" class="form-control" type="text" ng-model="todoDoc.text" ng-minlength="1" required></input>
               </form>
               <span class="error" ng-if="addTodo.addTodoText.$dirty && addTodo.addTodoText.$error.required">Required!</span><br>
               <span class="error" ng-if="addTodo.addTodoText.$error.minlength">You need to add some text before submitting something todo!</span><br>
             </div>
             <div class="col-xs-3">
-              <button class="btn btn-primary btn-group-justified" type="button" ng-click="createTodo()" ng-disabled="formData.text.length < 1 || formData.text === undefined"> <i class="fa fa-check"></i>Add</button>
+              <button class="btn btn-primary btn-group-justified" type="button" ng-click="createTodo()" ng-disabled="todoDoc.text.length < 1 || todoDoc.text === undefined"> <i class="fa fa-check"></i>Add</button>
             </div>
           </div>
-
         </div>
       </div>
-
     </div>
 
-    <!--{{todo | json}}-->
-
-
-
-  <script src="build/bundle.js"></script>
-  <script src="build/build.min.js"></script>
-</body>
+    <script src="build/bundle.js"></script>
+    <script src="build/build.min.js"></script>
+  </body>
 
 </html>

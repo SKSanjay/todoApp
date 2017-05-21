@@ -1,3 +1,4 @@
+//Initial Bootstrapping of core components
 var $ = require('jquery')(window);
 global.jQuery = require("jquery");
 window.angular = require('angular');
@@ -31,7 +32,6 @@ var angularMaterialDateTimePicker = require('ng-material-datetimepicker');
 var angularMaterialAccordion = require('angular-material-accordion');
 var angularMaterialDateTimePickerCss = require('./node_modules/ng-material-datetimepicker/dist/material-datetimepicker.min.css');
 
-
 //Angular UI Bootstrap
 var angularUIBootstrap = require('angular-ui-bootstrap');
 var angularUIBootstrapCss = ('./node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css');
@@ -44,7 +44,6 @@ var angularBootstrapDateTimePickerCss = require('./node_modules/bootstrap-datera
 var angularAdvancedSearchBox = require('angular-advanced-searchbox');
 var angularAdvancedSearchBoxCss = require('./node_modules/angular-advanced-searchbox/dist/angular-advanced-searchbox.min.css');
 var angularAdvancedSearchBoxTpls = require('./node_modules/angular-advanced-searchbox/dist/angular-advanced-searchbox-tpls.min.js');
-
 
 //Custom Css
 var customCss = require('./src/main.css');
