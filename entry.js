@@ -14,6 +14,9 @@ var ngTagsInput = require('ng-tags-input');
 var ngTagInputCss = require('./node_modules/ng-tags-input/build/ng-tags-input.min.css');
 var ngTagInputBootstrapCss = require('./node_modules/ng-tags-input/build/ng-tags-input.bootstrap.min.css');
 
+//Angular-Moment (For formatting)
+var angularMoment = require('angular-moment');
+
 //Angular Rating Icons
 var angularRatingIcons = require('angular-rating-icons');
 var angularRatingsIconsCss = require('./node_modules/angular-rating-icons/dist/angular-rating-icons.min.css');

@@ -10,8 +10,8 @@ angular.module('todoApp')
 			getSearch : function(text) {
 				return $http.get('/api/todos/' + text);
 			},
-			create : function(todoData) {
-				return $http.post('/api/todos', todoData);
+			create : function(userInput, todoTags, difficulty) {
+				return $http.post('/api/todos', userInput +'/'+ todoTags +'/'+ difficulty);
 			},
 			delete : function(id) {
 				return $http.delete('/api/todos/' + id);

@@ -7,5 +7,6 @@ angular.module('todoApp',
      'angAccordion', 
      'ui.bootstrap', 
      'daterangepicker',
-     'angular-advanced-searchbox'
+     'angular-advanced-searchbox',
+     'angularMoment'
     ]);

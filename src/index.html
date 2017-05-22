@@ -45,7 +45,7 @@
     <div class="row">
       <div class="col-xs-3">
         <!-- Date Picker -->
-        <input date-range-picker class="form-control date-picker" type="text" ng-model="datePicker.date"/>
+        <input date-range-picker class="form-control date-picker" options="options" type="text" ng-model="datePicker.date"/>
         <!-- Search Filter -->
         <nit-advanced-searchbox ng-model="searchParams" placeholder="Search..."></nit-advanced-searchbox>
 
@@ -53,8 +53,13 @@
         <uib-accordion close-others="oneAtATime">
           <div uib-accordion-group class="panel-default" is-open="status.isCustomHeaderOpen" heading="Static Header, initially expanded">
             <uib-accordion-heading>
-              <span style="font-size:15px;">{{datePicker.date.startDate | date:'dd/MM/yyyy'}}-{{datePicker.date.endDate | date:'dd/MM/yyyy'}} Summary</span>
-              <i class="pull-right" ng-class="{'fa fa-arrow-down': status.isCustomHeaderOpen, 'fa fa-arrow-right': !status.isCustomHeaderOpen}"></i>
+              <span style="font-size:12px;">
+                <time>{{datePicker.date.startDate | amDateFormat:'DD/MM/YYYY'}}</time>
+                -
+                <time>{{datePicker.date.endDate | amDateFormat:'DD/MM/YYYY'}}</time>
+                Summary
+              </span>
+              <i class="pull-right" style="font-size:12px;" ng-class="{'fa fa-arrow-down': status.isCustomHeaderOpen, 'fa fa-arrow-right': !status.isCustomHeaderOpen}"></i>
             </uib-accordion-heading>
             Tasks Completed: 5/20
             </br>
@@ -66,14 +71,15 @@
         </uib-accordion>
 
         <!-- Debugging -->
-        <pre>{{todos | json}}</pre>
+        <pre style="height:500px;">{{todos | json}}</pre>
+        <pre style="height:500px;">{{formData | json}}</pre>
 
       </div>
       <div class="col-xs-9">
         <div class="row">
           <div ng-repeat="todo in todos" class="row" style="padding:5px;">
 
-            <!-- Main Input Fields -->
+            <!-- Main Todo & Todo Edit Fields -->
             <div class="col-xs-9">
 
               <!-- Todo Field -->
@@ -81,7 +87,10 @@
                 <span class="input-group-addon">
                   <i class="fa fa-fw fa-file-text" aria-hidden="true"></i>
                 </span>
-                <input class="form-control" type="text" ng-model="todo.text" placeholder="Write your task here"></input>
+                <input class="form-control" type="text" ng-model="todo.text" placeholder="Write your task here" ng-minlength="1" required></input>
+                <span class="input-group-addon" ng-if="todo.text.$dirty && todo.text.addTodoText.required">
+                  <i class="fa fa-fw fa-exclamation" aria-hidden="true"></i>
+                </span>
               </div>
 
               <!-- Tags Field -->
@@ -104,21 +113,46 @@
                 <a type="button" class="btn btn-danger" ng-click="deleteTodo(todo._id)">Delete</a>
               </div>
               <a type="button" style="width:100%;" class="btn btn-success">Complete</a>
-              <span>Date Created: {{todo.dateInformation.dateCreated |date:'medium'}}</span>
+              <time>Date Created: {{todo.dateInformation.dateCreated | amDateFormat:'DD/MM/YYYY'}}</time>
               </br>
               <span>Date Modified: {{todoDoc.dateModified}}</span>
               </br>
-              <span>Date Completed: {{todoDoc.dateCompleted}}</span>
+              <span>Date Initially Completed: {{todoDoc.dateCompleted}}</span>
             </div>
           </div>
           <!--Add New Todo-->
-          <div class="row" style="padding:5px;">
+          <div class="row">
             <div class="col-xs-9">
               <form name="addTodo">
-                <input name="addTodoText" class="form-control" type="text" ng-model="formData.text" ng-minlength="1" required></input>
+
+                <!-- Add Todo Field -->
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="fa fa-fw fa-file-text" aria-hidden="true"></i>
+                  </span>
+                  <input name="addTodoText" class="form-control" type="text" ng-model="formData.text" ng-minlength="1" required></input>
+                  <span class="input-group-addon" ng-if="addTodo.addTodoText.$dirty && addTodo.addTodoText.$error.required">
+                    <i class="fa fa-fw fa-exclamation" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <!--<span class="error" ng-if="addTodo.addTodoText.$dirty && addTodo.addTodoText.$error.required">Required!</span><br>
+                <span class="error" ng-if="addTodo.addTodoText.$error.minlength">You need to add some text before submitting something todo!</span><br>-->
+
+                <!-- Add Tags Field -->
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="fa fa-fw fa-tags" aria-hidden="true"></i> 
+                  </span> 
+                  <tags-input ng-model="formData.tags" class="ti-input-md" use-strings="true">
+                  </tags-input>
+                </div>
+
+                <!-- Add Ratings Field-->
+                <div data-angular-rating-icons ng-model="formData.difficulty"></div>
+
               </form>
-              <span class="error" ng-if="addTodo.addTodoText.$dirty && addTodo.addTodoText.$error.required">Required!</span><br>
-              <span class="error" ng-if="addTodo.addTodoText.$error.minlength">You need to add some text before submitting something todo!</span><br>
+
+
             </div>
             <div class="col-xs-3">
               <button class="btn btn-primary btn-group-justified" type="button" ng-click="createTodo()" ng-disabled="formData.text.length < 1 || formData.text === undefined"> <i class="fa fa-check"></i>Add</button>
