@@ -75,13 +75,17 @@ angular.module('todoApp')
 
     // CREATE ==================================================================
     // when submitting the add form, send the text to the node API
-    $scope.createTodo = function() {
+    $scope.createTodo = function(text, tags, difficulty) {
+
+      // console.log('Controller :' + $scope.formData.text);
+      // console.log('Controller :' + $scope.formData.tags);
+      // console.log('Controller :' + $scope.formData.difficulty);
       // validate the formData to make sure that something is there
       // if form is empty, nothing will happen
       if ($scope.formData.text != undefined) {
         $scope.loading = true;
         // call the create function from our service (returns a promise object)
-        Todos.create($scope.formData)
+        Todos.create($scope.formData.text, $scope.formData.tags, $scope.formData.difficulty)
           // if successful creation, call our get function to get all the new todos
           .then(function(data) {
             $scope.loading = false;
@@ -93,10 +97,10 @@ angular.module('todoApp')
 
     // UPDATE ==================================================================
     // when submitting the add form, send the text to the node API
-    $scope.updateTodo = function(id, text, difficulty) {
-      console.log(id, text, difficulty);
+    $scope.updateTodo = function(id, text, difficulty, completed) {
+      console.log(id, text, difficulty, completed);
       // call the create function from our service (returns a promise object)
-      Todos.put(id, text, difficulty)
+      Todos.put(id, text, difficulty, completed)
         // if successful creation, call our get function to get all the new todos
         .then(function(data) {
           $scope.loading = false;

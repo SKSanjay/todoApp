@@ -7,17 +7,23 @@ angular.module('todoApp')
 			get : function() {
 				return $http.get('/api/todos');
 			},
+			getDateBased : function(startDate, endDate) {
+				return $http.get('/api/todos' + startDate +'/'+ endDate);
+			},
 			getSearch : function(text) {
 				return $http.get('/api/todos/' + text);
 			},
 			create : function(userInput, todoTags, difficulty) {
-				return $http.post('/api/todos', userInput +'/'+ todoTags +'/'+ difficulty);
+				// console.log('Factory :' + userInput);
+				// console.log('Factory :' + todoTags);
+				// console.log('Factory :' + difficulty);
+				return $http.post('/api/todos/' + userInput +'/'+ todoTags +'/'+ difficulty);
 			},
 			delete : function(id) {
 				return $http.delete('/api/todos/' + id);
 			},
-			put : function(id, userInput, difficulty) {
-				return $http.put('/api/todos/' + id +'/'+ userInput +'/'+ difficulty);
+			put : function(id, userInput, difficulty, completed) {
+				return $http.put('/api/todos/' + id +'/'+ userInput +'/'+ difficulty +'/'+ completed);
 			}
 		}
 	}]);

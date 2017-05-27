@@ -12,6 +12,7 @@ function getTodos(res) {
     });
 };
 
+
 module.exports = function (app) {
 
     // api ---------------------------------------------------------------------
@@ -21,33 +22,38 @@ module.exports = function (app) {
         getTodos(res);
     });
 
+    //get all todos between two dates (how to point to subobjects?)
+    app.get('/api/todos/:startDate/:endDate', function (req, res) {
 
+        // console.log(req.params.startDate);
+        // console.log(req.params.endDate);
+        var isoStartDate = new Date(req.params.startDate).toISOString();
+        var isoEndDate = new Date(req.params.endDate).toISOString();
 
-    //GET OR POST UNDER SAME ROUTE NOT WORKING??? FIND OUT
-    // app.get('/api/todos/:text', function (req, res) {
-    //     Todo.find({text:req.body.text},function (err, todos) {
+        Todo.find({'dateInformation.dateCreated':{$gte:new Date(req.params.startDate), $lte:new Date(req.params.endDate)}, function (err, todos) {
+                if (err){
+                    res.send(err);
+                }
 
-    //     // if there is an error retrieving, send the error. nothing after res.send(err) will execute
-    //     if (err) {
-    //         res.send(err);
-    //     }
-
-    //     res.json(todos); // return all todos in JSON format
-    //     });
-        
-    // });
+                res.json(todos); 
+            }
+        });
+    });
 
 
     // create todo and send back all todos after creation
     app.post('/api/todos/:userInput/:todoTags/:difficulty', function (req, res) {
 
+        //console.log(req);
+        //console.log(req.body.userInput);
+        console.log(req.params.userInput);
+        console.log(req.params.todoTags);
+        console.log(req.params.difficulty);
+
+        var tags = req.params.todoTags.split(',');
+
         // create a todo, information comes from AJAX request from Angular
-        Todo.create({
-            text: req.body.text,
-            todoTags: req.body.todoTags,
-            difficulty: req.body.difficulty,
-            done: false
-        }, function (err, todo) {
+        Todo.create({text: req.params.userInput, tags: tags, difficulty: req.params.difficulty}, function (err, todo) {
             if (err)
                 res.send(err);
 
@@ -69,12 +75,13 @@ module.exports = function (app) {
         });
     });
 
-    app.put('/api/todos/:todo_id/:text/:difficulty', function(req, res) {
+    app.put('/api/todos/:todo_id/:text/:difficulty/:completed', function(req, res) {
         //if (req) return handleError(req);
        var _id = req.params.todo_id;
        var text = req.params.text;
        var difficulty = req.params.difficulty;
-       var updateProperty = {$set: {text:text, difficulty:difficulty}};
+       var completed = req.params.completed;
+       var updateProperty = {$set: {text:text, difficulty:difficulty, completed:completed}};
         Todo.findByIdAndUpdate(_id, updateProperty,{new: true}, function (err, todo) {
             if (err){
                 res.send(err);

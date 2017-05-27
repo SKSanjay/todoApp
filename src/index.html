@@ -77,7 +77,10 @@
       </div>
       <div class="col-xs-9">
         <div class="row">
-          <div ng-repeat="todo in todos" class="row" style="padding:5px;">
+          <!--Not Completed Todos-->
+          <div ng-repeat="todo in todos | filter:{completed:false}" class="row" style="padding:5px;">
+
+            {{!todo.editing}}
 
             <!-- Main Todo & Todo Edit Fields -->
             <div class="col-xs-9">
@@ -87,7 +90,7 @@
                 <span class="input-group-addon">
                   <i class="fa fa-fw fa-file-text" aria-hidden="true"></i>
                 </span>
-                <input class="form-control" type="text" ng-model="todo.text" placeholder="Write your task here" ng-minlength="1" required></input>
+                <input class="form-control" type="text" ng-model="todo.text" ng-disabled="{{!todo.editing}}" placeholder="Write your task here" ng-minlength="1" required></input>
                 <span class="input-group-addon" ng-if="todo.text.$dirty && todo.text.addTodoText.required">
                   <i class="fa fa-fw fa-exclamation" aria-hidden="true"></i>
                 </span>
@@ -98,21 +101,22 @@
                 <span class="input-group-addon">
                   <i class="fa fa-fw fa-tags" aria-hidden="true"></i> 
                 </span> 
-                <tags-input ng-model="todo.tags" class="ti-input-md" use-strings="true">
+                <tags-input ng-model="todo.tags" ng-disabled="{{!todo.editing}}" class="ti-input-md" use-strings="true">
                 </tags-input>
               </div>
 
               <!-- Ratings Field-->
-              <div data-angular-rating-icons ng-model="todo.difficulty"></div>
+              <div data-angular-rating-icons readonly="{{!todo.editing}}" ng-model="todo.difficulty"></div>
             </div>
 
             <!-- Buttons & Dates -->
             <div class="col-xs-3">
               <div class="btn-group btn-group-justified">
-                <a type="button" class="btn btn-success" ng-click="updateTodo(todo._id, todo.text, todo.difficulty)">Update</a>
-                <a type="button" class="btn btn-danger" ng-click="deleteTodo(todo._id)">Delete</a>
+                <a type="button" style="font-size: 12px;" ng-if="todo.editing == false" class="btn btn-success" ng-click="todo.editing = true">Edit</a>
+                <a type="button" style="font-size: 12px;" ng-if="todo.editing == true" class="btn btn-default" ng-click="todo.editing = false" ng-click="updateTodo(todo._id, todo.text, todo.difficulty)">Finish Update</a>
+                <a type="button" style="font-size: 12px;" class="btn btn-danger" ng-click="deleteTodo(todo._id)">Delete</a>
               </div>
-              <a type="button" style="width:100%;" class="btn btn-success">Complete</a>
+              <a type="button" style="width:100%;" ng-disabled="{{!todo.editing}}" class="btn btn-success">Complete</a>
               <time>Date Created: {{todo.dateInformation.dateCreated | amDateFormat:'DD/MM/YYYY'}}</time>
               </br>
               <span>Date Modified: {{todoDoc.dateModified}}</span>
@@ -155,9 +159,57 @@
 
             </div>
             <div class="col-xs-3">
-              <button class="btn btn-primary btn-group-justified" type="button" ng-click="createTodo()" ng-disabled="formData.text.length < 1 || formData.text === undefined"> <i class="fa fa-check"></i>Add</button>
+              <button class="btn btn-primary btn-group-justified" type="button" ng-click="createTodo(formData.text, formData.tags, formData.difficulty)" ng-disabled="formData.text.length < 1 || formData.text === undefined"> <i class="fa fa-check"></i>Add</button>
             </div>
           </div>
+
+          <!-- Completed Todos -->
+          <div ng-repeat="todo in todos | filter:{completed:true}" class="row" style="padding:5px;">
+
+            <!-- Main Todo & Todo Edit Fields -->
+            <div class="col-xs-9">
+
+              <!-- Todo Field -->
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <i class="fa fa-fw fa-file-text" aria-hidden="true"></i>
+                </span>
+                <input class="form-control" type="text" ng-model="todo.text" placeholder="Write your task here" ng-minlength="1" ng-disabled="{{!todo.editing}}" required></input>
+                <span class="input-group-addon" ng-if="todo.text.$dirty && todo.text.addTodoText.required">
+                  <i class="fa fa-fw fa-exclamation" aria-hidden="true"></i>
+                </span>
+              </div>
+
+              <!-- Tags Field -->
+              <div class="input-group" style="width:100%">
+                <span class="input-group-addon">
+                  <i class="fa fa-fw fa-tags" aria-hidden="true"></i> 
+                </span> 
+                <tags-input ng-model="todo.tags" class="ti-input-md" ng-disabled="!todo.editing" use-strings="true">
+                </tags-input>
+              </div>
+
+              <!-- Ratings Field-->
+              <div data-angular-rating-icons readonly="!todo.editing" ng-model="todo.difficulty"></div>
+            </div>
+
+            <!-- Buttons & Dates -->
+            <div class="col-xs-3">
+              <div class="btn-group btn-group-justified">
+                <a type="button" class="btn btn-success" ng-click="updateTodo(todo._id, todo.text, todo.difficulty)">Update</a>
+                <a type="button" class="btn btn-danger" ng-click="deleteTodo(todo._id)">Delete</a>
+              </div>
+              <a type="button" style="width:100%;" ng-disabled="{{!todo.editing}}" ng-click="updateTodo(todo._id, todo.text, todo.difficulty, todo.completed)" class="btn btn-success">Complete</a>
+              <time>Date Created: {{todo.dateInformation.dateCreated | amDateFormat:'DD/MM/YYYY'}}</time>
+              </br>
+              <span>Date Modified: {{todoDoc.dateModified}}</span>
+              </br>
+              <span>Date Initially Completed: {{todoDoc.dateCompleted}}</span>
+            </div>
+          </div>
+
+
+
         </div>
       </div>
     </div>

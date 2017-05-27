@@ -14,5 +14,13 @@ module.exports = mongoose.model('Todo', {
     },
     dateInformation:{
         dateCreated: { type: Date, default: Date.now}
+    },
+    completed:{
+        type: Boolean,
+        default: false
+    },
+    editing:{
+        type: Boolean,
+        default: false
     }
 });
