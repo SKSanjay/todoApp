@@ -1,8 +1,10 @@
 angular.module('todoApp')
   .controller('TodoController', ['$scope', '$http', 'Todos', 'moment', function($scope, $http, Todos, moment) {
 
+    var vm = this;
+
     //Function calc avg	
-    $scope.calculateAverage = function(inputValue) {
+    vm.calculateAverage = function(inputValue) {
       var sum = 0;
       for (var i = 0; i < inputValue.length; i++) {
         sum += parseInt(inputValue[i].difficulty, 10); //don't forget to add the base 
@@ -12,32 +14,33 @@ angular.module('todoApp')
     };
 
     //Init: Page load info
-    $scope.date = moment().format('DD-MM-YYYY');
-    $scope.loading = true;
+    vm.date = moment().format('DD-MM-YYYY');
+    vm.loading = true;
 
     //formData: Todo init
-    $scope.formData = {};
-    $scope.formData.difficulty = 3;
+    vm.formData = {};
+    vm.formData.tags;
+    vm.formData.difficulty = 3;
 
     //Init: Todo (They should be date objects)
-    $scope.todoDoc = {};
-    $scope.todoDoc.dateModified = "2/2/2018";
-    $scope.todoDoc.dateCompleted = "3/3/2019";
+    vm.todoDoc = {};
+    vm.todoDoc.dateModified = "2/2/2018";
+    vm.todoDoc.dateCompleted = "3/3/2019";
 
     //Init: Datepicker
-    $scope.datePicker = {};
+    vm.datePicker = {};
 
     //Init datePicker format
     var startDateMoment = moment().subtract(1, "days").format('DD-MM-YYYY');
     var endDateMoment = moment().format('DD-MM-YYYY');
     
     //Issue with this property for some reason
-    $scope.datePicker.date = {
+    vm.datePicker.date = {
       startDate: moment().subtract(1, 'days'),
       endDate: moment()
     };
 
-    $scope.options = {
+    vm.options = {
       locale: {
         applyLabel: "Apply",
         fromLabel: "From",
@@ -56,7 +59,7 @@ angular.module('todoApp')
     }
 
     //Search init (dummy data)
-    $scope.availableSearchParams = [{
+    vm.availableSearchParams = [{
       key: "emailAddress",
       name: "E-Mail",
       placeholder: "E-Mail...",
@@ -68,56 +71,56 @@ angular.module('todoApp')
     // use the service to get all the todos
     Todos.get()
       .then(function(data) {
-        $scope.todos = data.data;
-        $scope.loading = false;
+        vm.todos = data.data;
+        vm.loading = false;
         console.log(data);
       });
 
     // CREATE ==================================================================
     // when submitting the add form, send the text to the node API
-    $scope.createTodo = function(text, tags, difficulty) {
+    vm.createTodo = function(text, tags, difficulty) {
 
-      // console.log('Controller :' + $scope.formData.text);
-      // console.log('Controller :' + $scope.formData.tags);
-      // console.log('Controller :' + $scope.formData.difficulty);
+      console.log('Controller :' + vm.formData.text);
+      console.log('Controller :' + vm.formData.tags);
+      console.log('Controller :' + vm.formData.difficulty);
       // validate the formData to make sure that something is there
       // if form is empty, nothing will happen
-      if ($scope.formData.text != undefined) {
-        $scope.loading = true;
+      if (vm.formData.text != undefined) {
+        vm.loading = true;
         // call the create function from our service (returns a promise object)
-        Todos.create($scope.formData.text, $scope.formData.tags, $scope.formData.difficulty)
+        Todos.create(vm.formData.text, vm.formData.tags, vm.formData.difficulty)
           // if successful creation, call our get function to get all the new todos
           .then(function(data) {
-            $scope.loading = false;
-            $scope.formData = {}; // clear the form so our user is ready to enter another
-            $scope.todos = data.data; // assign our new list of todos
+            vm.loading = false;
+            vm.formData = {}; // clear the form so our user is ready to enter another
+            vm.todos = data.data; // assign our new list of todos
           });
       }
     };
 
     // UPDATE ==================================================================
     // when submitting the add form, send the text to the node API
-    $scope.updateTodo = function(id, text, difficulty, completed) {
+    vm.updateTodo = function(id, text, difficulty, completed) {
       console.log(id, text, difficulty, completed);
       // call the create function from our service (returns a promise object)
       Todos.put(id, text, difficulty, completed)
         // if successful creation, call our get function to get all the new todos
         .then(function(data) {
-          $scope.loading = false;
-          $scope.formData = {}; // clear the form so our user is ready to enter another
-          $scope.todos = data.data; // assign our new list of todos
+          vm.loading = false;
+          vm.formData = {}; // clear the form so our user is ready to enter another
+          vm.todos = data.data; // assign our new list of todos
         });
     };
 
     // DELETE ==================================================================
     // delete a todo after checking it
-    $scope.deleteTodo = function(id) {
-      $scope.loading = true;
+    vm.deleteTodo = function(id) {
+      vm.loading = true;
       Todos.delete(id)
         // if successful creation, call our get function to get all the new todos
         .then(function(data) {
-          $scope.loading = false;
-          $scope.todos = data.data; // assign our new list of todos
+          vm.loading = false;
+          vm.todos = data.data; // assign our new list of todos
         });
     };
   }]);
