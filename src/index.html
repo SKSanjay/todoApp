@@ -61,9 +61,9 @@
               </span>
               <i class="pull-right" style="font-size:12px;" ng-class="{'fa fa-arrow-down': status.isCustomHeaderOpen, 'fa fa-arrow-right': !status.isCustomHeaderOpen}"></i>
             </uib-accordion-heading>
-            Tasks Completed: 5/20
+            Tasks Completed: {{todos.length}}/20
             </br>
-            Average Difficulty: {{calculateAverage(todos)}} Stars
+            Average Difficulty: {{calculateAverage(todos) | number: 2}} Stars
             </br>
             Most Common Tag: MEAN
             </br>
@@ -116,7 +116,7 @@
                 <a type="button" style="font-size: 12px;" ng-if="todo.editing == true" class="btn btn-default" ng-click="todo.editing = false" ng-click="updateTodo(todo._id, todo.text, todo.difficulty)">Finish Update</a>
                 <a type="button" style="font-size: 12px;" class="btn btn-danger" ng-click="deleteTodo(todo._id)">Delete</a>
               </div>
-              <a type="button" style="width:100%;" ng-disabled="{{!todo.editing}}" class="btn btn-success">Complete</a>
+              <a type="button" style="width:100%;" class="btn btn-success">Complete</a>
               <time>Date Created: {{todo.dateInformation.dateCreated | amDateFormat:'DD/MM/YYYY'}}</time>
               </br>
               <span>Date Modified: {{todoDoc.dateModified}}</span>
@@ -162,6 +162,8 @@
               <button class="btn btn-primary btn-group-justified" type="button" ng-click="createTodo(formData.text, formData.tags, formData.difficulty)" ng-disabled="formData.text.length < 1 || formData.text === undefined"> <i class="fa fa-check"></i>Add</button>
             </div>
           </div>
+
+          <span>Completed Todos</span>
 
           <!-- Completed Todos -->
           <div ng-repeat="todo in todos | filter:{completed:true}" class="row" style="padding:5px;">
