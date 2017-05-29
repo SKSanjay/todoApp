@@ -75,6 +75,21 @@ module.exports = function (app) {
         });
     });
 
+    //complete todo
+    app.put('/api/todos/:todo_id/:completed', function(req, res) {
+       var _id = req.params.todo_id;
+       var completed = req.params.completed;
+       var updateProperty = {$set: {completed:completed}};
+        Todo.findByIdAndUpdate(_id, updateProperty,{new: true}, function (err, todo) {
+            if (err){
+                res.send(err);
+                console.log("the complete went wrong for some reason");
+            }  
+            getTodos(res);
+        });
+    });
+
+    //update todo
     app.put('/api/todos/:todo_id/:text/:difficulty/:completed', function(req, res) {
         //if (req) return handleError(req);
        var _id = req.params.todo_id;

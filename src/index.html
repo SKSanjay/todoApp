@@ -77,6 +77,9 @@
       </div>
       <div class="col-xs-9">
         <div class="row">
+
+          Todos
+
           <!--Not Completed Todos-->
           <div ng-repeat="todo in vm.todos | filter:{completed:false}" class="row" style="padding:5px;">
 
@@ -116,7 +119,7 @@
                 <a type="button" style="font-size: 12px;" ng-if="todo.editing == true" class="btn btn-default" ng-click="todo.editing = false" ng-click="updateTodo(todo._id, todo.text, todo.difficulty)">Finish Update</a>
                 <a type="button" style="font-size: 12px;" class="btn btn-danger" ng-click="vm.deleteTodo(todo._id)">Delete</a>
               </div>
-              <a type="button" style="width:100%;" class="btn btn-success">Complete</a>
+              <a type="button" ng-click="vm.completeTodo(todo._id)" style="width:100%;" class="btn btn-success">Complete</a>
               <time>Date Created: {{todo.dateInformation.dateCreated | amDateFormat:'DD/MM/YYYY'}}</time>
               </br>
               <span>Date Modified: {{vm.todoDoc.dateModified}}</span>
@@ -201,7 +204,7 @@
                 <a type="button" class="btn btn-success" ng-click="vm.updateTodo(todo._id, todo.text, todo.difficulty)">Update</a>
                 <a type="button" class="btn btn-danger" ng-click="vm.deleteTodo(todo._id)">Delete</a>
               </div>
-              <a type="button" style="width:100%;" ng-disabled="{{!todo.editing}}" ng-click="vm.updateTodo(todo._id, todo.text, todo.difficulty, todo.completed)" class="btn btn-success">Complete</a>
+              <a type="button" style="width:100%;" ng-disabled="{{!todo.editing}}" ng-click="vm.completeTodo(todo._id)" class="btn btn-success">Complete</a>
               <time>Date Created: {{todo.dateInformation.dateCreated | amDateFormat:'DD/MM/YYYY'}}</time>
               </br>
               <span>Date Modified: {{vm.todoDoc.dateModified}}</span>

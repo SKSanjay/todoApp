@@ -98,6 +98,21 @@ angular.module('todoApp')
       }
     };
 
+    //complete todo
+    vm.completeTodo = function(id) {
+      vm.loading = true;
+      console.log(id);
+      // call the update function from our service (returns a promise object)
+      Todos.completeTodo(id, true)
+        // if successful creation, call our get function to get all the new todos
+        .then(function(data) {
+          vm.loading = false;
+          vm.formData = {}; // clear the form so our user is ready to enter another
+          vm.todos = data.data; // assign our new list of todos
+        });
+    };
+
+
     // UPDATE ==================================================================
     // when submitting the add form, send the text to the node API
     vm.updateTodo = function(id, text, difficulty, completed) {
@@ -111,6 +126,8 @@ angular.module('todoApp')
           vm.todos = data.data; // assign our new list of todos
         });
     };
+
+
 
     // DELETE ==================================================================
     // delete a todo after checking it
