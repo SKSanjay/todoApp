@@ -115,7 +115,7 @@
             <!-- Buttons & Dates -->
             <div class="col-xs-3">
               <div class="btn-group btn-group-justified">
-                <a type="button" style="font-size: 12px;" ng-if="todo.editing == false" class="btn btn-success" ng-click="todo.editing = true">Edit</a>
+                <a type="button" style="font-size: 12px;" ng-if="todo.editing == false" class="btn btn-success" ng-click="vm.invertEdit(todo.editing)">Edit</a>
                 <a type="button" style="font-size: 12px;" ng-if="todo.editing == true" class="btn btn-default" ng-click="todo.editing = false" ng-click="updateTodo(todo._id, todo.text, todo.difficulty)">Finish Update</a>
                 <a type="button" style="font-size: 12px;" class="btn btn-danger" ng-click="vm.deleteTodo(todo._id)">Delete</a>
               </div>

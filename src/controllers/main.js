@@ -22,6 +22,16 @@ angular.module('todoApp')
     vm.formData.tags;
     vm.formData.difficulty = 3;
 
+    //Invert edit state
+    vm.invertEdit = function(todo){
+      console.log(todo);
+      if(todo){
+        return !todo;
+      }
+
+    }
+
+
     //Init: Todo (They should be date objects)
     vm.todoDoc = {};
     vm.todoDoc.dateModified = "2/2/2018";
@@ -111,7 +121,6 @@ angular.module('todoApp')
           vm.todos = data.data; // assign our new list of todos
         });
     };
-
 
     // UPDATE ==================================================================
     // when submitting the add form, send the text to the node API
