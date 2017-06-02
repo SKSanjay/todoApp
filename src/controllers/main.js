@@ -19,7 +19,7 @@ angular.module('todoApp')
 
     //formData: Todo init
     vm.formData = {};
-    vm.formData.tags;
+    vm.formData.tags = [];
     vm.formData.difficulty = 3;
 
     //Init: Todo (They should be date objects)
@@ -55,6 +55,19 @@ angular.module('todoApp')
         'Last 7 Days': [moment().subtract(6, 'days'), moment()],
         'Last 14 Days': [moment().subtract(14, 'days'), moment()],
         'Last 30 Days': [moment().subtract(29, 'days'), moment()]
+      },
+      eventHandlers:{
+        'apply.daterangepicker': function(ev, picker){
+          // console.log(ev.model.startDate.toISOString());
+          // console.log(ev.model.endDate.toISOString()); 
+          Todos.getDateBased(ev.model.startDate.toISOString(), ev.model.endDate.toISOString())
+            .then(function(data) {
+              vm.todos = data.data;
+              vm.loading = false;
+              console.log(data);
+            });
+
+        }
       }
     }
 
@@ -83,6 +96,13 @@ angular.module('todoApp')
       console.log('Controller :' + vm.formData.text);
       console.log('Controller :' + vm.formData.tags);
       console.log('Controller :' + vm.formData.difficulty);
+
+      console.log(vm.formData.tags);
+
+      if(vm.formData.tags.length == 0){
+        vm.formData.tags = '';
+      }
+
       // validate the formData to make sure that something is there
       // if form is empty, nothing will happen
       if (vm.formData.text != undefined) {

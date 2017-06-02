@@ -23,21 +23,33 @@ module.exports = function (app) {
     });
 
     //get all todos between two dates (how to point to subobjects?)
-    app.get('/api/todos/:startDate/:endDate', function (req, res) {
+    app.get('/api/todosDate/:startDate/:endDate', function (req, res) {
 
-        // console.log(req.params.startDate);
-        // console.log(req.params.endDate);
+        console.log(req.params.startDate);
+        console.log(req.params.endDate);
         var isoStartDate = new Date(req.params.startDate).toISOString();
         var isoEndDate = new Date(req.params.endDate).toISOString();
 
-        Todo.find({'dateInformation.dateCreated':{$gte:new Date(req.params.startDate), $lte:new Date(req.params.endDate)}, function (err, todos) {
-                if (err){
-                    res.send(err);
-                }
 
-                res.json(todos); 
+
+        Todo.find({
+            'dateInformation.dateCreated': {
+                $gte: isoStartDate,
+                $lte: isoEndDate
             }
+        }, function (err, todos) {
+            
+            if (err) {
+                res.send(err);
+            }
+
+            res.json(todos);
         });
+
+        // .exec(function(err, todos){
+        //     res.json(todos);
+        // })
+
     });
 
 
@@ -47,13 +59,19 @@ module.exports = function (app) {
         //console.log(req);
         //console.log(req.body.userInput);
         console.log(req.params.userInput);
-        console.log(req.params.todoTags);
+        console.log();
         console.log(req.params.difficulty);
+
+
 
         var tags = req.params.todoTags.split(',');
 
         // create a todo, information comes from AJAX request from Angular
-        Todo.create({text: req.params.userInput, tags: tags, difficulty: req.params.difficulty}, function (err, todo) {
+        Todo.create({
+            text: req.params.userInput,
+            tags: tags,
+            difficulty: req.params.difficulty
+        }, function (err, todo) {
             if (err)
                 res.send(err);
 
@@ -76,32 +94,46 @@ module.exports = function (app) {
     });
 
     //complete todo
-    app.put('/api/todos/:todo_id/:completed', function(req, res) {
-       var _id = req.params.todo_id;
-       var completed = req.params.completed;
-       var updateProperty = {$set: {completed:completed}};
-        Todo.findByIdAndUpdate(_id, updateProperty,{new: true}, function (err, todo) {
-            if (err){
+    app.put('/api/todos/:todo_id/:completed', function (req, res) {
+        var _id = req.params.todo_id;
+        var completed = req.params.completed;
+        var updateProperty = {
+            $set: {
+                completed: completed
+            }
+        };
+        Todo.findByIdAndUpdate(_id, updateProperty, {
+            new: true
+        }, function (err, todo) {
+            if (err) {
                 res.send(err);
                 console.log("the complete went wrong for some reason");
-            }  
+            }
             getTodos(res);
         });
     });
 
     //update todo
-    app.put('/api/todos/:todo_id/:text/:difficulty/:completed', function(req, res) {
+    app.put('/api/todos/:todo_id/:text/:difficulty/:completed', function (req, res) {
         //if (req) return handleError(req);
-       var _id = req.params.todo_id;
-       var text = req.params.text;
-       var difficulty = req.params.difficulty;
-       var completed = req.params.completed;
-       var updateProperty = {$set: {text:text, difficulty:difficulty, completed:completed}};
-        Todo.findByIdAndUpdate(_id, updateProperty,{new: true}, function (err, todo) {
-            if (err){
+        var _id = req.params.todo_id;
+        var text = req.params.text;
+        var difficulty = req.params.difficulty;
+        var completed = req.params.completed;
+        var updateProperty = {
+            $set: {
+                text: text,
+                difficulty: difficulty,
+                completed: completed
+            }
+        };
+        Todo.findByIdAndUpdate(_id, updateProperty, {
+            new: true
+        }, function (err, todo) {
+            if (err) {
                 res.send(err);
                 console.log("the update went wrong for some reason");
-            }  
+            }
             getTodos(res);
         });
     });
