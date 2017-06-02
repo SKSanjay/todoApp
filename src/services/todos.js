@@ -8,7 +8,7 @@ angular.module('todoApp')
 				return $http.get('/api/todos');
 			},
 			getDateBased : function(startDate, endDate) {
-				return $http.get('/api/todos' + startDate +'/'+ endDate);
+				return $http.get('/api/todosDate/' + startDate +'/'+ endDate);
 			},
 			getSearch : function(text) {
 				return $http.get('/api/todos/' + text);

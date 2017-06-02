@@ -26,9 +26,9 @@ var angularClock = require('angular-clock');
 var angularClockCss = require('./node_modules/angular-clock/dist/angular-clock.css');
 
 //Angular Material Stuff (Need to uninstall)
-var angularMaterial = require('angular-material');
-var angularMaterialCss = require('./node_modules/angular-material/angular-material.min.css');
-var angularMaterialAccordianCss = require('./node_modules/angular-material-accordion/css/ang-accordion.css');
+// var angularMaterial = require('angular-material');
+// var angularMaterialCss = require('./node_modules/angular-material/angular-material.min.css');
+// var angularMaterialAccordianCss = require('./node_modules/angular-material-accordion/css/ang-accordion.css');
 
 //Angular Date Time Picker (Need to uninstall)
 var angularMaterialDateTimePicker = require('ng-material-datetimepicker');

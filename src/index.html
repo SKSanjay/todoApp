@@ -45,7 +45,7 @@
     <div class="row">
       <div class="col-xs-3">
         <!-- Date Picker -->
-        <input date-range-picker class="form-control date-picker" options="options" type="text" ng-model="vm.datePicker.date"/>
+        <input date-range-picker class="form-control date-picker" options="vm.options" type="text" ng-model="vm.datePicker.date"/>
         <!-- Search Filter -->
         <nit-advanced-searchbox ng-model="vm.searchParams" placeholder="Search..."></nit-advanced-searchbox>
 
@@ -83,7 +83,7 @@
           <!--Not Completed Todos-->
           <div ng-repeat="todo in vm.todos | filter:{completed:false}" class="row" style="padding:5px;">
 
-            {{!todo.editing}}
+            
 
             <!-- Main Todo & Todo Edit Fields -->
             <div class="col-xs-9">
@@ -93,7 +93,7 @@
                 <span class="input-group-addon">
                   <i class="fa fa-fw fa-file-text" aria-hidden="true"></i>
                 </span>
-                <input class="form-control" type="text" ng-model="todo.text" ng-disabled="{{!todo.editing}}" placeholder="Write your task here" ng-minlength="1" required></input>
+                <input class="form-control" type="text" ng-model="todo.text" ng-disabled="!todo.editing" placeholder="Write your task here" ng-minlength="1" required></input>
                 <span class="input-group-addon" ng-if="todo.text.$dirty && todo.text.addTodoText.required">
                   <i class="fa fa-fw fa-exclamation" aria-hidden="true"></i>
                 </span>
@@ -104,12 +104,12 @@
                 <span class="input-group-addon">
                   <i class="fa fa-fw fa-tags" aria-hidden="true"></i> 
                 </span> 
-                <tags-input ng-model="todo.tags" ng-disabled="{{!todo.editing}}" class="ti-input-md" use-strings="true" min-length="1">
+                <tags-input ng-model="todo.tags" ng-disabled="!todo.editing" class="ti-input-md" use-strings="true" min-length="1">
                 </tags-input>
               </div>
 
               <!-- Ratings Field-->
-              <div data-angular-rating-icons readonly="{{!todo.editing}}" ng-model="todo.difficulty"></div>
+              <div data-angular-rating-icons ng-model="todo.difficulty"></div> {{!todo.editing}}
             </div>
 
             <!-- Buttons & Dates -->
@@ -204,7 +204,7 @@
                 <a type="button" class="btn btn-success" ng-click="vm.updateTodo(todo._id, todo.text, todo.difficulty)">Update</a>
                 <a type="button" class="btn btn-danger" ng-click="vm.deleteTodo(todo._id)">Delete</a>
               </div>
-              <a type="button" style="width:100%;" ng-disabled="{{!todo.editing}}" ng-click="vm.completeTodo(todo._id)" class="btn btn-success">Complete</a>
+              <a type="button" style="width:100%;" ng-disabled="{{!todo.editing}}" ng-submit="vm.completeTodo(todo._id)" class="btn btn-success">Complete</a>
               <time>Date Created: {{todo.dateInformation.dateCreated | amDateFormat:'DD/MM/YYYY'}}</time>
               </br>
               <span>Date Modified: {{vm.todoDoc.dateModified}}</span>
