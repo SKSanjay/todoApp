@@ -90,4 +90,4 @@ gulp.task('watch', function() {
 });
 
 // The default task (called when you run `gulp` from cli)
-gulp.task('default', ['watch', 'fonts', 'html', 'css','scripts', 'browserify', 'test']);
+gulp.task('default', ['watch', 'server', 'fonts', 'html', 'css','scripts', 'browserify', 'test']);

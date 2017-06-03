@@ -6,14 +6,16 @@ module.exports = mongoose.model('Todo', {
     },
     tags:{
         type: Array,
-        default: [1, '2', '3']
+        default: []
     },
     difficulty:{
         type: Number,
-        default: 2
+        default: 3
     },
     dateInformation:{
-        dateCreated: { type: Date, default: Date.now}
+        dateCreated: { type: Date, default: Date.now},
+        dateModified: { type: Date, default: Date.now},
+        dateCompleted: { type: Date, default: Date.now}
     },
     completed:{
         type: Boolean,

@@ -30,8 +30,6 @@ module.exports = function (app) {
         var isoStartDate = new Date(req.params.startDate).toISOString();
         var isoEndDate = new Date(req.params.endDate).toISOString();
 
-
-
         Todo.find({
             'dateInformation.dateCreated': {
                 $gte: isoStartDate,
