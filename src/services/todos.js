@@ -22,10 +22,11 @@ angular.module('todoApp')
 			delete : function(id) {
 				return $http.delete('/api/todos/' + id);
 			},
-			completeTodo : function(id, completed) {
+			completeTodo : function(id, completed, dateCompleted) {
 				console.log('Factory :' + id);
 				console.log('Factory :' + completed);
-				return $http.put('/api/todos/' + id +'/'+ completed);
+				console.log('Factory :' + dateCompleted);
+				return $http.put('/api/todos/' + id +'/'+ completed +'/'+ dateCompleted);
 			},
 			put : function(id, userInput, difficulty, completed) {
 				return $http.put('/api/todos/' + id +'/'+ userInput +'/'+ difficulty +'/'+ completed);

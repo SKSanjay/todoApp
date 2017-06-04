@@ -19,7 +19,7 @@ angular.module('todoApp')
 
     //formData: Todo init
     vm.formData = {};
-    vm.formData.tags = [];
+    vm.formData.tags;
     vm.formData.difficulty = 3;
 
     //Invert edit state
@@ -30,12 +30,6 @@ angular.module('todoApp')
       }
 
     }
-
-
-    //Init: Todo (They should be date objects)
-    vm.todoDoc = {};
-    vm.todoDoc.dateModified = "2/2/2018";
-    vm.todoDoc.dateCompleted = "3/3/2019";
 
     //Init: Datepicker
     vm.datePicker = {};
@@ -109,12 +103,11 @@ angular.module('todoApp')
 
       console.log(tags);
 
-      if(tags.length == 0){
-        tags = '';
+      if(tags === undefined){
+        tags = [];
       }
 
-      // validate the formData to make sure that something is there
-      // if form is empty, nothing will happen
+      // validate the formData to make sure that something is there if form is empty, nothing will happen
       if (text != undefined) {
         vm.loading = true;
         // call the create function from our service (returns a promise object)

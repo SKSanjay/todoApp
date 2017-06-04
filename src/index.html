@@ -61,12 +61,18 @@
               </span>
               <i class="pull-right" style="font-size:12px;" ng-class="{'fa fa-arrow-down': status.isCustomHeaderOpen, 'fa fa-arrow-right': !status.isCustomHeaderOpen}"></i>
             </uib-accordion-heading>
-            Tasks Completed: {{completedTodos.length}}/{{vm.todos.length}}
-            </br>
-            Average Difficulty: {{vm.calculateAverage(vm.todos) | number: 2}} Stars
-            </br>
-            Most Common Tag: MEAN
-            </br>
+            <span ng-if="vm.todos.length > 0">
+              Tasks Completed: {{completedTodos.length}}/{{vm.todos.length}}
+              </br>
+              Average Difficulty: {{vm.calculateAverage(vm.todos) | number: 2}} Stars
+              </br>
+              Most Common Tag: MEAN
+              </br>
+            </span>
+            <span ng-if="vm.todos.length === undefined || vm.todos.length == 0">
+              No todos for the date selected.
+            </span>
+
           </div>
         </uib-accordion>
 
@@ -120,7 +126,7 @@
                 <a type="button" style="font-size: 12px;" class="btn btn-danger" ng-click="vm.deleteTodo(todo._id)">Delete</a>
               </div>
               <a type="button" ng-click="vm.completeTodo(todo._id)" style="width:100%;" class="btn btn-success">Complete</a>
-              <time>Date Created: {{todo.dateInformation.dateCreated | amDateFormat:'DD/MM/YYYY'}}</time>
+              <span>Date Created: {{todo.dateInformation.dateCreated | amDateFormat:'DD/MM/YYYY'}}<span>
               </br>
               <span>Date Modified: {{todo.dateInformation.dateModified | amDateFormat:'DD/MM/YYYY'}}</span>
               </br>
@@ -205,11 +211,11 @@
                 <a type="button" class="btn btn-danger" ng-click="vm.deleteTodo(todo._id)">Delete</a>
               </div>
               <a type="button" style="width:100%;" ng-disabled="{{!todo.editing}}" ng-submit="vm.completeTodo(todo._id)" class="btn btn-success">Complete</a>
-              <time>Date Created: {{todo.dateInformation.dateCreated | amDateFormat:'DD/MM/YYYY'}}</time>
+              <span>Date Created: {{todo.dateInformation.dateCreated | amDateFormat:'DD/MM/YYYY'}}<span>
               </br>
-              <span>Date Modified: {{vm.todoDoc.dateModified}}</span>
+              <span>Date Modified: {{todo.dateInformation.dateModified | amDateFormat:'DD/MM/YYYY'}}</span>
               </br>
-              <span>Date Initially Completed: {{vm.todoDoc.dateCompleted}}</span>
+              <span>Date Initially Completed: {{todo.dateInformation.dateCompleted | amDateFormat:'DD/MM/YYYY'}}</span>
             </div>
           </div>
 

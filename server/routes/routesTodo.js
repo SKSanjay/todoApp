@@ -52,15 +52,13 @@ module.exports = function (app) {
 
 
     // create todo and send back all todos after creation
-    app.post('/api/todos/:userInput/:todoTags/:difficulty', function (req, res) {
+    app.post('/api/todos/:userInput/:todoTags*?/:difficulty', function (req, res) {
 
         //console.log(req);
         //console.log(req.body.userInput);
         console.log(req.params.userInput);
-        console.log();
+        console.log(req.params.todoTags);
         console.log(req.params.difficulty);
-
-
 
         if(req.params.todoTags.length > 0){
             var tags = req.params.todoTags.split(',');
@@ -94,7 +92,7 @@ module.exports = function (app) {
     });
 
     //complete todo
-    app.put('/api/todos/:todo_id/:completed', function (req, res) {
+    app.put('/api/todos/:todo_id/:completed/:dateCompleted', function (req, res) {
         var _id = req.params.todo_id;
         var completed = req.params.completed;
         var updateProperty = {
@@ -102,6 +100,7 @@ module.exports = function (app) {
                 completed: completed
             }
         };
+        var dateCompleted = req.params.completed;
         Todo.findByIdAndUpdate(_id, updateProperty, {
             new: true
         }, function (err, todo) {
