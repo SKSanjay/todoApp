@@ -62,7 +62,9 @@ module.exports = function (app) {
 
 
 
-        var tags = req.params.todoTags.split(',');
+        if(req.params.todoTags.length > 0){
+            var tags = req.params.todoTags.split(',');
+        }
 
         // create a todo, information comes from AJAX request from Angular
         Todo.create({

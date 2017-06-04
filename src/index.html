@@ -124,7 +124,7 @@
               </br>
               <span>Date Modified: {{todo.dateInformation.dateModified | amDateFormat:'DD/MM/YYYY'}}</span>
               </br>
-              <span>Date Initially Completed: {{todo.dateInformation.dateInitiallyCompleted | amDateFormat:'DD/MM/YYYY'}}</span>
+              <span>Date Initially Completed: {{todo.dateInformation.dateCompleted | amDateFormat:'DD/MM/YYYY'}}</span>
             </div>
           </div>
           <!--Add New Todo-->
@@ -190,7 +190,7 @@
                 <span class="input-group-addon">
                   <i class="fa fa-fw fa-tags" aria-hidden="true"></i> 
                 </span> 
-                <tags-input ng-model="vm.todo.tags" class="ti-input-md" ng-disabled="!todo.editing" use-strings="true" min-length="1">
+                <tags-input ng-model="todo.tags" class="ti-input-md" ng-disabled="!todo.editing" use-strings="true" min-length="1">
                 </tags-input>
               </div>
 
