@@ -13,11 +13,12 @@ angular.module('todoApp')
 			getSearch : function(text) {
 				return $http.get('/api/todos/' + text);
 			},
-			create : function(userInput, todoTags, difficulty) {
-				// console.log('Factory :' + userInput);
+			create : function(formData) {
+				console.log('Factory :' + formData);
+				console.log('Factory :' + formData.text);
 				// console.log('Factory :' + todoTags);
 				// console.log('Factory :' + difficulty);
-				return $http.post('/api/todos/' + userInput +'/'+ todoTags +'/'+ difficulty);
+				return $http.post('/api/todos/', formData);
 			},
 			delete : function(id) {
 				return $http.delete('/api/todos/' + id);

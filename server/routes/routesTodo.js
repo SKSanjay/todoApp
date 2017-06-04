@@ -44,31 +44,27 @@ module.exports = function (app) {
             res.json(todos);
         });
 
-        // .exec(function(err, todos){
-        //     res.json(todos);
-        // })
-
     });
 
 
     // create todo and send back all todos after creation
-    app.post('/api/todos/:userInput/:todoTags*?/:difficulty', function (req, res) {
+    app.post('/api/todos/', function (req, res) {
 
-        //console.log(req);
-        //console.log(req.body.userInput);
-        console.log(req.params.userInput);
-        console.log(req.params.todoTags);
-        console.log(req.params.difficulty);
+        console.log("Routes" + req);
+        console.log("Routes" + req.body);
+        // console.log(req.params.userInput);
+        // console.log(req.params.todoTags);
+        // console.log(req.params.difficulty);
 
-        if(req.params.todoTags.length > 0){
-            var tags = req.params.todoTags.split(',');
-        }
+        // if(req.params.todoTags.length > 0){
+        //     var tags = req.params.todoTags.split(',');
+        // }
 
         // create a todo, information comes from AJAX request from Angular
         Todo.create({
-            text: req.params.userInput,
-            tags: tags,
-            difficulty: req.params.difficulty
+            text: req.body.text,
+            tags: req.body.tags,
+            difficulty: req.body.difficulty
         }, function (err, todo) {
             if (err)
                 res.send(err);

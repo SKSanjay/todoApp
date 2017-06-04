@@ -95,23 +95,26 @@ angular.module('todoApp')
 
     // CREATE ==================================================================
     // when submitting the add form, send the text to the node API
-    vm.createTodo = function(text, tags, difficulty) {
+    vm.createTodo = function(formData) {
 
-      console.log('Controller :' + text);
-      console.log('Controller :' + tags);
-      console.log('Controller :' + difficulty);
+      console.log(formData);
+      console.log(formData.text);
+      console.log(formData.tags);
+      console.log(formData.difficulty);
 
-      console.log(tags);
+      // console.log('Controller :' + text);
+      // console.log('Controller :' + tags);
+      // console.log('Controller :' + difficulty);
 
-      if(tags === undefined){
-        tags = [];
-      }
+      // if(tags === undefined){
+      //   tags = [];
+      // }
 
       // validate the formData to make sure that something is there if form is empty, nothing will happen
-      if (text != undefined) {
+      if (formData.text != undefined) {
         vm.loading = true;
         // call the create function from our service (returns a promise object)
-        Todos.create(text, tags, difficulty)
+        Todos.create(formData)
           // if successful creation, call our get function to get all the new todos
           .then(function(data) {
             vm.loading = false;
