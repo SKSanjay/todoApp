@@ -14,8 +14,8 @@ module.exports = mongoose.model('Todo', {
     },
     dateInformation:{
         dateCreated: { type: Date, default: Date.now},
-        dateModified: { type: Date, default: Date.now},
-        dateCompleted: { type: Date, default: Date.now}
+        dateModified: { type: Date, default: null},
+        dateCompleted: { type: Date, default: null}
     },
     completed:{
         type: Boolean,

@@ -6,11 +6,16 @@ angular.module('todoApp')
     //Function calc avg	
     vm.calculateAverage = function(inputValue) {
       var sum = 0;
-      for (var i = 0; i < inputValue.length; i++) {
-        sum += parseInt(inputValue[i].difficulty, 10); //don't forget to add the base 
+
+      if(inputValue.length == 0 || inputValue === undefined){
+        //do nothing
+      }else{
+        for (var i = 0; i < inputValue.length; i++) {
+          sum += parseInt(inputValue[i].difficulty, 10); //don't forget to add the base 
+        }
+        var avg = sum / inputValue.length;
+        return avg;
       }
-      var avg = sum / inputValue.length;
-      return avg;
     };
 
     //Init: Page load info
@@ -24,9 +29,13 @@ angular.module('todoApp')
 
     //Invert edit state
     vm.invertEdit = function(todo){
+      //console.log('hello');
       console.log(todo);
-      if(todo){
-        return !todo;
+      if(todo === false){
+        todo = true;
+      }
+      else{
+        todo = false;
       }
 
     }
@@ -97,18 +106,10 @@ angular.module('todoApp')
     // when submitting the add form, send the text to the node API
     vm.createTodo = function(formData) {
 
-      console.log(formData);
-      console.log(formData.text);
-      console.log(formData.tags);
-      console.log(formData.difficulty);
-
-      // console.log('Controller :' + text);
-      // console.log('Controller :' + tags);
-      // console.log('Controller :' + difficulty);
-
-      // if(tags === undefined){
-      //   tags = [];
-      // }
+      console.log('Controller :' + formData);
+      console.log('Controller :' + formData.text);
+      console.log('Controller :' + formData.tags);
+      console.log('Controller :' + formData.difficulty);
 
       // validate the formData to make sure that something is there if form is empty, nothing will happen
       if (formData.text != undefined) {
@@ -139,11 +140,11 @@ angular.module('todoApp')
     };
 
     // UPDATE ==================================================================
-    // when submitting the add form, send the text to the node API
-    vm.updateTodo = function(id, text, difficulty, completed) {
-      console.log(id, text, difficulty, completed);
+    //when submitting the add form, send the text to the node API
+    vm.updateTodo = function(todo) {
+      console.log(todo);
       // call the create function from our service (returns a promise object)
-      Todos.put(id, text, difficulty, completed)
+      Todos.updateTodo(todo)
         // if successful creation, call our get function to get all the new todos
         .then(function(data) {
           vm.loading = false;
@@ -152,6 +153,10 @@ angular.module('todoApp')
         });
     };
 
+    // vm.updateTodo = function(todo){
+    //   console.log('blah');
+    //   console.log(todo);
+    // };
 
 
     // DELETE ==================================================================

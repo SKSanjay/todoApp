@@ -121,16 +121,16 @@
             <!-- Buttons & Dates -->
             <div class="col-xs-3">
               <div class="btn-group btn-group-justified">
-                <a type="button" style="font-size: 12px;" ng-if="todo.editing == false" class="btn btn-success" ng-click="vm.invertEdit(todo.editing)">Edit</a>
-                <a type="button" style="font-size: 12px;" ng-if="todo.editing == true" class="btn btn-default" ng-click="todo.editing = false" ng-click="updateTodo(todo._id, todo.text, todo.difficulty)">Finish Update</a>
+                <a type="button" style="font-size: 12px;" ng-if="todo.editing == false" class="btn btn-success" ng-click="todo.editing = true">Edit</a>
+                <a type="button" style="font-size: 12px;" ng-if="todo.editing == true" class="btn btn-default" ng-click="todo.editing = false; vm.updateTodo(todo)">Finish Update</a>
                 <a type="button" style="font-size: 12px;" class="btn btn-danger" ng-click="vm.deleteTodo(todo._id)">Delete</a>
               </div>
-              <a type="button" ng-click="vm.completeTodo(todo._id)" style="width:100%;" class="btn btn-success">Complete</a>
+              <a type="button" ng-disabled="todo.editing == true" ng-submit="vm.completeTodo(todo._id)" style="width:100%;" class="btn btn-success">Complete</a>
               <span>Date Created: {{todo.dateInformation.dateCreated | amDateFormat:'DD/MM/YYYY'}}<span>
               </br>
-              <span>Date Modified: {{todo.dateInformation.dateModified | amDateFormat:'DD/MM/YYYY'}}</span>
+              <span ng-if="todo.dateInformation.dateModified !== null">Date Modified: {{todo.dateInformation.dateModified | amDateFormat:'DD/MM/YYYY'}}</span>
               </br>
-              <span>Date Initially Completed: {{todo.dateInformation.dateCompleted | amDateFormat:'DD/MM/YYYY'}}</span>
+              <span ng-if="todo.dateInformation.dateCompleted !== null">Date Initially Completed: {{todo.dateInformation.dateCompleted | amDateFormat:'DD/MM/YYYY'}}</span>
             </div>
           </div>
           <!--Add New Todo-->
@@ -210,12 +210,12 @@
                 <a type="button" class="btn btn-success" ng-click="vm.updateTodo(todo._id, todo.text, todo.difficulty)">Update</a>
                 <a type="button" class="btn btn-danger" ng-click="vm.deleteTodo(todo._id)">Delete</a>
               </div>
-              <a type="button" style="width:100%;" ng-disabled="{{!todo.editing}}" ng-submit="vm.completeTodo(todo._id)" class="btn btn-success">Complete</a>
+              <a type="button" style="width:100%;" ng-submit="vm.revertTodo(todo._id)" class="btn btn-success">Revert</a>
               <span>Date Created: {{todo.dateInformation.dateCreated | amDateFormat:'DD/MM/YYYY'}}<span>
               </br>
-              <span>Date Modified: {{todo.dateInformation.dateModified | amDateFormat:'DD/MM/YYYY'}}</span>
+              <span ng-if="todo.dateInformation.dateModified !== null">Date Modified: {{todo.dateInformation.dateModified | amDateFormat:'DD/MM/YYYY'}}</span>
               </br>
-              <span>Date Initially Completed: {{todo.dateInformation.dateCompleted | amDateFormat:'DD/MM/YYYY'}}</span>
+              <span ng-if="todo.dateInformation.dateCompleted !== null">Date Initially Completed: {{todo.dateInformation.dateCompleted | amDateFormat:'DD/MM/YYYY'}}</span>
             </div>
           </div>
 

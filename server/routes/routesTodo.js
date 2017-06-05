@@ -12,6 +12,20 @@ function getTodos(res) {
     });
 };
 
+//I want to make this function although im not 100% this is the right way to write it
+function getdateTodos(res){
+
+    Todo.find({'dateInformation.dateCreated': {$gte: isoStartDate, $lte: isoEndDate}}, function (err, todos) {
+        if (err) {
+            res.send(err);
+        }
+
+        res.json(todos);
+    });
+
+};
+
+
 
 module.exports = function (app) {
 
@@ -52,13 +66,6 @@ module.exports = function (app) {
 
         console.log("Routes" + req);
         console.log("Routes" + req.body);
-        // console.log(req.params.userInput);
-        // console.log(req.params.todoTags);
-        // console.log(req.params.difficulty);
-
-        // if(req.params.todoTags.length > 0){
-        //     var tags = req.params.todoTags.split(',');
-        // }
 
         // create a todo, information comes from AJAX request from Angular
         Todo.create({
@@ -88,12 +95,14 @@ module.exports = function (app) {
     });
 
     //complete todo
-    app.put('/api/todos/:todo_id/:completed/:dateCompleted', function (req, res) {
+    app.put('/api/todos/:todo_id/:completed', function (req, res) {
         var _id = req.params.todo_id;
         var completed = req.params.completed;
+        var dateCompleted = new Date();
         var updateProperty = {
             $set: {
-                completed: completed
+                completed: completed,
+                'dateInformation.dateCompleted': dateCompleted
             }
         };
         var dateCompleted = req.params.completed;
@@ -109,28 +118,28 @@ module.exports = function (app) {
     });
 
     //update todo
-    app.put('/api/todos/:todo_id/:text/:difficulty/:completed', function (req, res) {
-        //if (req) return handleError(req);
-        var _id = req.params.todo_id;
-        var text = req.params.text;
-        var difficulty = req.params.difficulty;
-        var completed = req.params.completed;
-        var updateProperty = {
-            $set: {
-                text: text,
-                difficulty: difficulty,
-                completed: completed
-            }
-        };
-        Todo.findByIdAndUpdate(_id, updateProperty, {
-            new: true
-        }, function (err, todo) {
-            if (err) {
-                res.send(err);
-                console.log("the update went wrong for some reason");
-            }
-            getTodos(res);
-        });
-    });
+    // app.put('/api/todos/', function (req, res) {
+    //     //if (req) return handleError(req);
+    //     var _id = req.params.todo_id;
+    //     var text = req.params.text;
+    //     var difficulty = req.params.difficulty;
+    //     var completed = req.params.completed;
+    //     var updateProperty = {
+    //         $set: {
+    //             text: text,
+    //             difficulty: difficulty,
+    //             completed: completed
+    //         }
+    //     };
+    //     Todo.findByIdAndUpdate(_id, updateProperty, {
+    //         new: true
+    //     }, function (err, todo) {
+    //         if (err) {
+    //             res.send(err);
+    //             console.log("the update went wrong for some reason");
+    //         }
+    //         getTodos(res);
+    //     });
+    // });
 
 };

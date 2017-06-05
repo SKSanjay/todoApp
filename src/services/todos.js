@@ -13,21 +13,22 @@ angular.module('todoApp')
 			getSearch : function(text) {
 				return $http.get('/api/todos/' + text);
 			},
-			create : function(formData) {
-				console.log('Factory :' + formData);
-				console.log('Factory :' + formData.text);
-				// console.log('Factory :' + todoTags);
-				// console.log('Factory :' + difficulty);
-				return $http.post('/api/todos/', formData);
+			create : function(todo) {
+				console.log('Factory :' + todo);
+				console.log('Factory :' + todo.text);
+				return $http.post('/api/todos/', todo);
+			},
+			updateTodo : function(todo){
+				console.log('Factory :' + todo);
+				return $http.post('/api/todos/', todo);
 			},
 			delete : function(id) {
 				return $http.delete('/api/todos/' + id);
 			},
-			completeTodo : function(id, completed, dateCompleted) {
+			completeTodo : function(id, completed) {
 				console.log('Factory :' + id);
 				console.log('Factory :' + completed);
-				console.log('Factory :' + dateCompleted);
-				return $http.put('/api/todos/' + id +'/'+ completed +'/'+ dateCompleted);
+				return $http.put('/api/todos/' + id +'/'+ completed);
 			},
 			put : function(id, userInput, difficulty, completed) {
 				return $http.put('/api/todos/' + id +'/'+ userInput +'/'+ difficulty +'/'+ completed);
