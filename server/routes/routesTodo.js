@@ -118,28 +118,25 @@ module.exports = function (app) {
     });
 
     //update todo
-    // app.put('/api/todos/', function (req, res) {
-    //     //if (req) return handleError(req);
-    //     var _id = req.params.todo_id;
-    //     var text = req.params.text;
-    //     var difficulty = req.params.difficulty;
-    //     var completed = req.params.completed;
-    //     var updateProperty = {
-    //         $set: {
-    //             text: text,
-    //             difficulty: difficulty,
-    //             completed: completed
-    //         }
-    //     };
-    //     Todo.findByIdAndUpdate(_id, updateProperty, {
-    //         new: true
-    //     }, function (err, todo) {
-    //         if (err) {
-    //             res.send(err);
-    //             console.log("the update went wrong for some reason");
-    //         }
-    //         getTodos(res);
-    //     });
-    // });
+    app.put('/api/todos/', function (req, res) {
+        //if (req) return handleError(req);
+        console.log(req.body);
+        var _id = req.body.todo_id;
+        var todo = req.body.todo;
+        var updateProperty = {
+            $set: {
+                todo:todo
+            }
+        };
+        Todo.findByIdAndUpdate(_id, updateProperty, {
+            new: true
+        }, function (err, todo) {
+            if (err) {
+                res.send(err);
+                console.log("the update went wrong for some reason");
+            }
+            getTodos(res);
+        });
+    });
 
 };

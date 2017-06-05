@@ -18,9 +18,10 @@ angular.module('todoApp')
 				console.log('Factory :' + todo.text);
 				return $http.post('/api/todos/', todo);
 			},
-			updateTodo : function(todo){
+			updateTodo : function(todo, id){
 				console.log('Factory :' + todo);
-				return $http.post('/api/todos/', todo);
+				console.log('Factory :' + id);
+				return $http.post('/api/todos/', todo, id);
 			},
 			delete : function(id) {
 				return $http.delete('/api/todos/' + id);
