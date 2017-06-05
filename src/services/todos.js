@@ -26,10 +26,10 @@ angular.module('todoApp')
 			delete : function(id) {
 				return $http.delete('/api/todos/' + id);
 			},
-			completeTodo : function(id, completed) {
+			completeTodo : function(id, bool) {
 				console.log('Factory :' + id);
-				console.log('Factory :' + completed);
-				return $http.put('/api/todos/' + id +'/'+ completed);
+				console.log('Factory :' + bool);
+				return $http.put('/api/todos/' + id +'/'+ bool);
 			},
 			put : function(id, userInput, difficulty, completed) {
 				return $http.put('/api/todos/' + id +'/'+ userInput +'/'+ difficulty +'/'+ completed);

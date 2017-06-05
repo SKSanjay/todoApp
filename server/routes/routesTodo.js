@@ -99,13 +99,13 @@ module.exports = function (app) {
         var _id = req.params.todo_id;
         var completed = req.params.completed;
         var dateCompleted = new Date();
+        //var dateCompleted = req.params.completed;
         var updateProperty = {
             $set: {
                 completed: completed,
                 'dateInformation.dateCompleted': dateCompleted
             }
         };
-        var dateCompleted = req.params.completed;
         Todo.findByIdAndUpdate(_id, updateProperty, {
             new: true
         }, function (err, todo) {

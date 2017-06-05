@@ -125,7 +125,7 @@
                 <a type="button" style="font-size: 12px;" ng-if="todo.editing == true" class="btn btn-default" ng-click="todo.editing = false; vm.updateTodo(todo, todo._id)">Finish Update</a>
                 <a type="button" style="font-size: 12px;" class="btn btn-danger" ng-click="vm.deleteTodo(todo._id)">Delete</a>
               </div>
-              <a type="button" ng-disabled="todo.editing == true" ng-submit="vm.completeTodo(todo._id)" style="width:100%;" class="btn btn-success">Complete</a>
+              <a type="button" ng-disabled="todo.editing == true" ng-click="vm.completeTodo(todo._id, true)" style="width:100%;" class="btn btn-success">Complete</a>
               <span>Date Created: {{todo.dateInformation.dateCreated | amDateFormat:'DD/MM/YYYY'}}<span>
               </br>
               <span ng-if="todo.dateInformation.dateModified !== null">Date Modified: {{todo.dateInformation.dateModified | amDateFormat:'DD/MM/YYYY'}}</span>
@@ -210,7 +210,7 @@
                 <a type="button" class="btn btn-success" ng-click="vm.updateTodo(todo._id, todo.text, todo.difficulty)">Update</a>
                 <a type="button" class="btn btn-danger" ng-click="vm.deleteTodo(todo._id)">Delete</a>
               </div>
-              <a type="button" style="width:100%;" ng-submit="vm.revertTodo(todo._id)" class="btn btn-success">Revert</a>
+              <a type="button" style="width:100%;" ng-submit="vm.completeTodo(todo._id, false)" class="btn btn-success">Revert</a>
               <span>Date Created: {{todo.dateInformation.dateCreated | amDateFormat:'DD/MM/YYYY'}}<span>
               </br>
               <span ng-if="todo.dateInformation.dateModified !== null">Date Modified: {{todo.dateInformation.dateModified | amDateFormat:'DD/MM/YYYY'}}</span>
